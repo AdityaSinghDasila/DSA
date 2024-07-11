@@ -33,6 +33,7 @@ int main(){
 
     Time complexity of MAP: sorting - O(    log(n)  )    
                             fetching- O(    log(n)  )   
+                            which is more than TC of unordered map. THUS use unordered map unless TLE hits or sorted values matter.
 */
 
 
