@@ -18,3 +18,4 @@ int main(){
 
     return 0;
 }
+//whenever you want to hash characters only, then its a no brainer to use array hasing as the maximum possible characters are only 256 (0 to 255), thus the hash array can only be a maximum int hsh[256].
