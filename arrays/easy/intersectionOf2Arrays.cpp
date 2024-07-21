@@ -16,8 +16,6 @@ vector<int> intersection(int arr1[], int n, int arr2[], int m){
             i++;
             j++;
         }
-
-
     //if no common element is found:-
         //if arr1 element is smaller
         else if(arr1[i]<arr2[j]){
