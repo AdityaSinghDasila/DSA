@@ -1,3 +1,4 @@
+/*
 #include <iostream>
 #include <bits/stdc++.h>
 using namespace std;
@@ -29,6 +30,36 @@ int main()
         cout<<arr[i]<<" ";
     }
 
+
+    return 0;
+}
+*/
+
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+void bubble(vector<int>& arr){
+    for(int i=0;i<arr.size();i++){
+        for(int j=0;j<arr.size()-1-i;j++){
+            if(arr[j]>arr[j+1]){
+                swap(arr[j],arr[j+1]);
+            }
+        }
+    }
+}
+int main(){
+    vector<int> arr = {323,23,1,23,51,2,31,34,2,1,23523,53,2123,1,1,21,1,0};
+    cout<<"The vector before sorting : ";
+    for(int i: arr){
+        cout<<i<<" ";
+    }
+
+    bubble(arr);
+
+    cout<<endl<<"The vector after sorting : ";
+    for(int i:arr){
+        cout<<i<<" ";
+    } 
 
     return 0;
 }
