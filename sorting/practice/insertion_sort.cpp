@@ -2,8 +2,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 void insertion(vector<int>& arr){
-    for(int i=0;i<arr.size();i++){
-        for(int j=i+1;j>0;j--){
+    for(int i=1;i<arr.size();i++){
+        for(int j=i;j>0;j--){
             if(arr[j]<arr[j-1]){
                 swap(arr[j],arr[j-1]);
             }
