@@ -1,4 +1,4 @@
-/*   VERY IMPORTANT, PLEASE PRACTICE
+/*   VERY IMPORTANT, PLEASE PRACTICE 
     given a matrix, if an element is 0, then set its entire row and column to 0
 */
 
