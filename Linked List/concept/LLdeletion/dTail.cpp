@@ -18,16 +18,31 @@ class node{
 };
 
 node* delTail(node* head){
-
-    node* temp =head;
-    while(temp!=nullptr){
-        if(temp->next->next==nullptr){
-            node * last= temp->next;
-            temp->next=nullptr;
-            delete last;
+    if(head==nullptr || head->next==nullptr)
+    {
+        if(head->next==nullptr)
+        {
+            delete head;
         }
+        return nullptr;
+    }
+    node* temp =head;
+    // while(temp!=nullptr){
+        // if(temp->next->next==nullptr){
+        //     node * last= temp->next;
+        //     temp->next=nullptr;
+        //     delete last;
+        // }
+        // temp=temp->next;
+        // }
+    while(temp->next->next!=nullptr)
+    {
         temp=temp->next;
     }
+    node* tail = temp->next;
+    temp->next=nullptr;    
+    delete tail;
+
     return head;
 }
 
