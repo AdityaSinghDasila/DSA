@@ -136,7 +136,7 @@ int main(){
 */
 
 
-
+/*
 #include <iostream>
 #include <bits/stdc++.h>
 using namespace std;
@@ -203,5 +203,66 @@ int main(){
         cout<<i<<" ";
     }
 
+    return 0;
+}
+*/
+
+
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+
+void merge(vector<int>& arr, int first,int middle, int last){
+    //we have two sorted arrays now
+    vector<int>temp;
+    int i= first;
+    int j= middle+1;
+    while(i<=middle && j<=last){
+        if(arr[i]<=arr[j]){
+            temp.push_back(arr[i]);
+            i++;
+        }
+        else{
+            temp.push_back(arr[j]);
+            j++;
+        }
+    }
+    //now fillig the array that was not exhausted in the above loop
+    while(i<=middle){
+        temp.push_back(arr[i]);
+        i++;
+    }
+    while(j<=last){
+        temp.push_back(arr[j]);
+        j++;
+    }
+
+    //now the temp array is the sorted version of both the virtual arrays combined
+    for(int i = first;i<=last;i++){
+        arr[i]=temp[i-first];
+    }//with this, the original array is sorted from index first->last
+}
+
+void mergeSort(vector<int>& arr, int first, int last){
+    if(first== last){
+        return;
+    }
+    int middle = (first+last)/2;
+    mergeSort(arr,first,middle);
+    mergeSort(arr,middle+1,last);
+    merge(arr,first,middle,last);
+}
+
+int main(){
+    vector<int> arr = {34,12,4,2,12,53,23,45,2,36,78,6,4,82,0,0,5,4,3};
+    cout<<endl<<"The vector before sorting :";
+    for(int i : arr ){
+        cout<<i<<" ";
+    }
+    mergeSort(arr,0,arr.size()-1);
+    cout<<endl<<"The vector after sorting : ";
+    for(int i: arr){
+        cout<<i<<" ";
+    }
     return 0;
 }
