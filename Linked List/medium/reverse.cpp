@@ -38,6 +38,20 @@ node* reverseLL(node* head){
     return head;
 }
 
+node* reverseRecursion(node* head,node* temp){
+    if(head==nullptr){
+        cout<<endl<<"HAHA";
+        return temp;
+    }
+    node* temp2= head->next;
+    head->next=temp;
+    temp = head;
+    head = temp2;
+    return reverseRecursion(head,temp);
+}
+
+
+/*********************************************************************** */
 int main(){
     node* head = new node(0);
     node* mover = head;
@@ -50,8 +64,9 @@ int main(){
     cout<<endl<<"linked list before operation : ";
     printLL(head);
 
-    head = reverseLL(head);
-    cout<<endl<<"Reversal of linked list :";
+    // head = reverseLL(head);
+    head = reverseRecursion(head,nullptr);
+    cout<<endl<<"Reversal of linked list through itrative method :";
     printLL(head);
 
     return 0;
