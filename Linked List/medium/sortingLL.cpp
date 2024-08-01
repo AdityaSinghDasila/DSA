@@ -1,3 +1,6 @@
+//please practice this as much as possible also.
+//dont forget to dry run too
+
 #include <iostream>
 #include <bits/stdc++.h>
 using namespace std;
