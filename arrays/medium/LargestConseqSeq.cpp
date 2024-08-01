@@ -50,7 +50,11 @@ int optimal(vector<int> arr){
             maxLen= max(maxLen, count);
         }
     }  
-    return maxLen; 
+    return maxLen;
+    /*
+        TC : O(2N)==O(N)'
+        SC : O(N)
+    */ 
 }
 
 int main(){
