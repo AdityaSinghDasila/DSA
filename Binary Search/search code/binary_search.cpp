@@ -67,7 +67,7 @@ int main(){
     int last = arr.size()-1;
     int middle = (first+last)/2;
     int ans=-1;
-    while(first<last){
+    while(first<=last){
         middle=(first+last)/2;
         if(arr[middle]==el){
             ans = middle;
