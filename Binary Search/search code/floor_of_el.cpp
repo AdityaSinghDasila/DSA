@@ -1,3 +1,6 @@
+/*
+    floor of an element el is the largest element which is smaller or equal to el in the array
+*/
 #include <iostream>
 #include <bits/stdc++.h>
 using namespace std;
