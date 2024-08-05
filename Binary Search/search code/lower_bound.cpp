@@ -19,19 +19,13 @@ int main(){
     int first = 0;
     int middle = first +(last-first)/2;
     while(first<=last){
-        int middle = first+ (last-first)/2;
-        if(arr[middle]==el){
-            ans= middle;
-            break;
-        }
-        if(arr[middle]>el){
-            if(middle<ans){
-                ans = middle;
-            }
-            last = middle -1;
+        middle = first + (last-first)/2;
+        if(arr[middle]>=el){
+            ans = middle;
+            last = middle-1;
         }
         else if(arr[middle]<el){
-            first = middle +1;
+            first = middle+1;
         }
     }
     if(ans!=arr.size()){
