@@ -33,9 +33,9 @@ int main(){
     }
     
     if(ans != -1){
-        cout<<endl<<"The upper bound of "<<el<<" was found at index "<<ans<<" which is "<<arr[ans];
+        cout<<endl<<"The floor of "<<el<<" was found at index "<<ans<<" which is "<<arr[ans];
     }else{
-        cout<<"The upper bound of "<<el<<" was not found";
+        cout<<"The floor of "<<el<<" was not found";
     }
 
     return 0;
