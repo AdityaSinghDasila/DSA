@@ -283,6 +283,7 @@ int main(){
 /*
     UPPER BOUND
 */
+/*
 #include <iostream>
 #include <bits/stdc++.h>
 using namespace std;
@@ -315,3 +316,7 @@ int main(){
     cout<<endl<<"ans : "<<ans;
     return 0;
 }
+*/
+
+/*----------------------------------------------------------------------------------------
+        YOU CANNOT FIND UPPER AND LOWER BOUND IN A SINGLE PASS, FIND THEM SEPERATELY-----------------------------------------------------------------------------*/

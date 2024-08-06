@@ -14,11 +14,10 @@ int main(){
     int el;
     cout<<endl<<"Enter the element whose first and last occurence is to be found : ";
     cin>>el;
-
+    //LOWER BOUND
     int first =0;
     int last = arr.size()-1;
     int focc = arr.size();
-    int locc = arr.size();
     int middle = first + (last-first)/2;
     while(first<=last){
         middle=first+(last-first)/2;
@@ -26,12 +25,23 @@ int main(){
             first = middle+1;
         }
         else if(arr[middle]>=el){
-            if(arr[middle]>el){
-                locc = middle;
-            }
-            if(arr[middle]>=el){
-                focc = middle;
-            }
+            focc = middle;
+            last = middle-1;
+        }
+    }
+
+    int locc = arr.size();
+    first =0;
+    last = arr.size()-1;
+    middle = first+(last-first)/2;
+
+    while(first<=last){
+        middle = first +(last-first)/2;
+        if(arr[middle]<=el){
+            first = middle+1;
+        }
+        else if(arr[middle]>el){
+            locc = middle;
             last = middle-1;
         }
     }
