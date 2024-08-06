@@ -241,3 +241,39 @@ int main(){
     return 0;
 }
 */
+
+/*
+    lower bound
+*/
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+int main(){
+    vector<int> arr = {1,2,3,4,5,6,7,7,7,7,7,7,8,9,10};
+    cout<<endl<<"The array : ";
+    for(int i: arr){
+        cout<<i<<" ";
+    } 
+
+    cout<<endl<<"Enter the element you want to find the lower bound of : ";
+    int el;
+    cin>>el; 
+
+    int last =arr.size();
+    int first = 0;
+    int middle = first + (last-first)/2;
+    int ans=arr.size();
+    while(first <= last){
+        middle = first + (last-first)/2;
+        if(arr[middle]>=el){
+            ans = middle;
+            last = middle-1;
+        }
+        else if(arr[middle]<el){
+            first = middle +1;
+        }
+    }
+    cout<<endl<<"ans : "<<ans;
+
+    return 0;
+}
