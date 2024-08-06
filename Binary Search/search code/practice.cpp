@@ -123,6 +123,7 @@ int main(){
 
 
 /*The upper bound*/
+/*
 #include <iostream>
 #include <bits/stdc++.h>
 using namespace std;
@@ -152,5 +153,43 @@ int main(){
         }
     }
     cout<<endl<<"The upper bound will be found at the index : "<<ans;
+    return 0;
+}
+*/
+
+/* floor of the an element in the array */
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+int main(){
+    vector<int>arr = {1,2,3,4,5,6,7,8,9,10,200};
+    cout<<endl<<"The array : ";
+    for(int i: arr ){
+        cout<<i<<" ";
+    } 
+
+    cout<<endl<<"Enter the element for which you want the floor of : ";
+    int el;
+    cin>>el;
+
+    int first =0;
+    int last = arr.size();
+    int floor = -1;
+    int middle = first+ (last-first)/2;
+    while(first <= last){
+        middle = first+(last-first)/2;
+        if(arr[middle]<=el){
+            floor = middle;
+            first = middle+1;
+        }
+        else if(arr[middle]>el){
+            last= middle-1;
+        }
+    }
+    if(floor!=-1)
+    cout<<endl<<"The floor of "<<el<<" in the array is : "<<arr[floor]<<", at the index : "<<floor;
+
+    else
+        cout<<endl<<"floor not found";
     return 0;
 }
