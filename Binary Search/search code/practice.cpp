@@ -158,6 +158,7 @@ int main(){
 */
 
 /* floor of the an element in the array */
+/*
 #include <iostream>
 #include <bits/stdc++.h>
 using namespace std;
@@ -191,5 +192,50 @@ int main(){
 
     else
         cout<<endl<<"floor not found";
+    return 0;
+}
+*/
+
+/* Ceil of an element in an array */
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+
+int main(){
+
+    vector<int> arr ={1,2,3,4,5,6,7,8,9,10,200};
+    cout<<endl<<"The array : ";
+    for(int i: arr){
+        cout<<i<<" ";
+    } 
+
+
+    int el;
+    cout<<endl<<"Enter the element for which you want the ceil for : "; 
+    cin>>el;
+
+    int ceil = arr.size();
+    int first = 0;
+    int last = arr.size()-1;
+    int middle = first +(last - first)/2;
+
+    while(first<=last){
+        middle = first+(last-first)/2;
+        if(arr[middle]>=el){
+            ceil = middle;
+            last = middle-1;
+        }
+        else if( arr[ middle]<el){
+            first = middle+1;
+        }
+    }
+
+
+    if(ceil!= arr.size()){
+        cout<<endl<<"The ceil of "<<el<<" in the array is : "<<arr[ceil]<<" at the index: "<<ceil;
+    }else{
+        cout<<endl<<"Ceil not found";
+    }
+
     return 0;
 }
