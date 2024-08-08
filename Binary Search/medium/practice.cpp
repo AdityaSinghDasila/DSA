@@ -117,3 +117,96 @@ int main(){
     return 0;
 }
 */
+
+/*  SEARCH AN ELEMNT IN A ROTATED SORTED ARRAY WITH DUPLICATES */
+/*
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+int main(){
+    
+    vector<int> arr = {11,12,13,14,15,16,17,1,2,3,4,5,6,7,8,9,10};
+    cout<<endl<<"The array : ";
+    for(int i : arr){
+        cout<<i<<" ";
+    }
+
+    cout<<endl<<"Enter the element you want to search : ";
+    int el;
+    cin>>el;
+
+    int first = 0;
+    int last = arr.size()-1;
+    int middle = first + (last - first)/2;
+    int ans = arr.size();
+
+    while(first <= last){
+        middle = first + (last -first)/2;
+        if(arr[middle]==el){
+            ans = middle;
+            break;
+        }
+        else if(arr[middle]==arr[first] && arr[middle]==arr[last]){
+            first = first +1;
+            last -=1;
+        }
+        else if(arr[first]<=arr[middle]){
+            //left side is sorted
+            if(el>=arr[first] && el<=arr[middle]){
+                last = middle -1;
+            }
+            else{
+                first = middle+1;
+            }
+        }
+        else if(arr[middle]<=arr[last]){
+            //right is sorted
+            if(el<=arr[last] && el>=arr[middle]){
+                first = middle +1;
+            }
+            else{
+                last = middle -1;
+            }
+        }
+    }
+    if( ans != arr.size() ){
+        cout<<endl<<"The index : "<<ans;
+    }else{
+        cout<<endl<<"NOT FOUND!! ";
+    }
+    
+    return 0;
+}
+*/
+
+/*  FIND MINIMUM IN A ROTATED SORTED ARRAY */
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+int main(){
+    vector<int> arr= {8,9,10,23,2,3,4,5,7};
+    cout<<endl<<"The array : ";
+    for(int i : arr){
+        cout<<i<<" ";
+    }
+
+    int first =0;
+    int last = arr.size()-1;
+    int middle = first + (last - first)/2;
+    int mini = INT_MAX;
+    while(first <= last){
+        middle = first+(last -first)/2;
+        if(arr[middle]>=arr[first]){
+            mini = min(mini,arr[first]);
+            first = middle +1;
+        }
+        else{
+            mini = min(mini,arr[middle]);
+            last = middle-1;
+        }
+    }
+
+    cout<<endl<<"The minimum of the array is : "<<mini;
+
+    return 0;
+}
