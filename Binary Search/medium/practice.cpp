@@ -1,3 +1,5 @@
+/*  RETURN THE INDEX OF THE ELEMENT FROM AN ARRAY THAT IS ROTATED K TIMES AFTER SORTING   */
+/*
 #include <iostream>
 #include <bits/stdc++.h>
 using namespace std;
@@ -50,6 +52,65 @@ int main(){
     }    
     else{
         cout<<endl<<"The element was not found!! ";
+    }
+
+    return 0;
+}
+*/
+
+
+
+/*  RETURN THE FIRST AND LAST OCCURENCE OF AN ELEMENT IN A SORTED ARRAY */
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+int main(){
+    vector<int> arr ={1,2,3,4,5,6,7,8,9,9,9,10,11,12,13};
+    cout<<endl<<"The array : ";
+    for(int i:  arr){
+        cout<<i<<" ";
+    }
+
+    int el;
+    cout<<endl<<"Enter the element you want the index of : ";
+    cin>>el;
+
+    int first = 0;
+    int last = arr.size()-1;
+    int middle = first + (last - first)/2;
+    int ub = arr.size();
+    int lb = arr.size();
+
+    //find the ub and lb seperately
+    while(first <= last){
+        middle = first +  (last -first)/2;
+        if(arr[middle]>el){
+            ub = middle;
+            last = middle-1;
+        }
+        else if(arr[middle]<=el){
+            first = middle +1;
+        }
+    }
+    
+    //now the lb
+    first =0;
+    last = arr.size()-1;
+    while(first<=last){
+        middle = first + (last - first)/2;
+        if(arr[middle]<el){
+            first = middle+1;
+        }
+        else if(arr[middle]>=el){
+            lb = middle;
+            last = middle -1;
+        }
+    }
+
+    if(lb!=arr.size() && lb!=ub){
+        cout<<endl<<"The starting index : "<<lb<<endl<<"The ending index : "<<ub-1;
+    }else{
+        cout<<endl<<"The element was not found ! ";
     }
 
     return 0;
