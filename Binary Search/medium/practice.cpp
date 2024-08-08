@@ -213,3 +213,57 @@ int main(){
 }
 */
 
+/*  FIND THE SINGLE ELEMENT IN A SORTED ARRAY */
+/*
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+int main(){
+    vector<int> arr ={1,1,2,2,3,3,4,4,5,5,6,6,7,8,8,9,9};
+    cout<<endl<<"The array : ";
+    for(int i : arr){
+        cout<<i<<" ";
+    }
+
+    int first = 1;
+    int last = arr.size()-2;
+    int middle = first + (last-first)/2;
+    int ans = arr.size();
+
+    while(first<=last){
+        middle = first + (last -first)/2;
+        if(arr[0]!=arr[1]){
+            ans = 0;
+            break;
+        }
+        if(arr[arr.size()-1]!=arr[arr.size()-2]){
+            ans = arr.size()-1;
+            break;
+        }
+        if(arr[middle]!=arr[middle-1] && arr[middle]!=arr[middle+1]){
+            ans = middle;
+            break;
+        }
+        else if(middle % 2 == 0){
+            if(arr[middle]==arr[middle-1]){
+                last = middle -1;
+            }
+            else{
+                first = middle +1;
+            }
+        }
+        else{
+            if(arr[middle]==arr[middle-1]){
+                first = middle +1;
+            }
+            else{
+                last = middle -1;
+            }
+        }
+    }
+
+    cout<<endl<<"The element that is not in pair is : "<<arr[ans];
+
+    return 0;
+}
+*/
