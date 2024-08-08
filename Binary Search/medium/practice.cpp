@@ -267,3 +267,89 @@ int main(){
     return 0;
 }
 */
+
+/*  FIND THE PEAK ELEMENT IN THE ARRAY */
+//single peak in the array
+/*
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+int main(){
+    vector<int>arr ={1,2,3,4,5,6,7,8,9,5,3,2,0};
+    cout<<endl<<"The array: ";
+    for(int i: arr){
+        cout<<i<<" ";
+    }
+
+    int first = 1;
+    int last = arr.size()-2;
+    int middle = first + (last -first)/2;
+    int ans = arr.size();
+    while(first<=last){
+        middle = first+(last-first)/2;
+        if(arr[0]>arr[1]){
+            ans = 0;
+            break;
+        }
+        if(arr[arr.size()-1]>arr[arr.size()-2]){
+            ans = arr.size()-1;
+        }
+        else if(arr[middle]>arr[middle-1] && arr[middle]>arr[middle+1]){
+            ans = middle;
+            break;
+        }
+        else if(arr[middle]>arr[middle-1] && arr[middle]<arr[middle+1]){
+            first = middle+1;
+        }
+        else if(arr[middle]>arr[middle+1] && arr[middle]<arr[middle-1]){
+            last = middle-1;
+        }
+    }
+    cout<<endl<<"The peak element is : "<<arr[ans];
+    
+    return 0;
+}
+*/
+
+//MULTIPLE peaks in the array
+/*
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+int main(){
+    vector<int>arr ={1,2,3,4,5,6,7,8,9,5,3,2,0};
+    cout<<endl<<"The array: ";
+    for(int i: arr){
+        cout<<i<<" ";
+    }
+
+    int first = 1;
+    int last = arr.size()-2;
+    int middle = first + (last -first)/2;
+    int ans = arr.size();
+    while(first<=last){
+        middle = first+(last-first)/2;
+        if(arr[0]>arr[1]){
+            ans = 0;
+            break;
+        }
+        if(arr[arr.size()-1]>arr[arr.size()-2]){
+            ans = arr.size()-1;
+        }
+        else if(arr[middle]>arr[middle-1] && arr[middle]>arr[middle+1]){
+            ans = middle;
+            break;
+        }
+        else if(arr[middle]>arr[middle-1] && arr[middle]<arr[middle+1]){
+            first = middle+1;
+        }
+        else{
+            last = middle-1;
+        }
+    }
+    cout<<endl<<"The peak element is : "<<arr[ans];
+    
+    return 0;
+}
+*/
+
