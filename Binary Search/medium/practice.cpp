@@ -61,6 +61,7 @@ int main(){
 
 
 /*  RETURN THE FIRST AND LAST OCCURENCE OF AN ELEMENT IN A SORTED ARRAY */
+/*
 #include <iostream>
 #include <bits/stdc++.h>
 using namespace std;
@@ -115,3 +116,4 @@ int main(){
 
     return 0;
 }
+*/
