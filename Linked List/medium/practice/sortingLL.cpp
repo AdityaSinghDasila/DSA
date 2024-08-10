@@ -102,3 +102,110 @@ int main(){
     return 0;
 }
 */
+
+
+//again practice
+/*
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+class node{
+    public:
+    int data;
+    node* next;
+    // constructor
+    node(int data1){
+        data = data1;
+        next = nullptr;
+    }
+};
+node* findMiddle(node* head){
+    node* f = head->next->next;
+    node* s = head;
+    while(f!=nullptr && f->next!=nullptr){
+        f=f->next->next;
+        s=s->next;
+    }
+    return s;
+}
+node* mergeLL(node* head1, node* head2){
+    node* dummy = new node(-1);
+    node* mover = dummy;
+
+    node* temp1 = head1;
+    node* temp2 = head2;
+    while(temp1!=nullptr && temp2!=nullptr){
+        if(temp1->data<=temp2->data){
+            mover->next=temp1;
+            temp1 = temp1->next;
+            mover = mover->next;
+        }
+        else{
+            mover->next = temp2;
+            temp2= temp2->next;
+            mover = mover->next;
+        }
+    }
+    //now those who didnt exhaust
+    while(temp1!=nullptr){
+        mover->next = temp1;
+        temp1= temp1->next;
+        mover = mover ->next;
+    }
+    while(temp2!= nullptr){
+        mover ->next = temp2;
+        temp2 = temp2->next;
+        mover = mover ->next;
+    }
+    return dummy->next;
+}
+
+node* mergeSort(node* head){
+    if(head==nullptr || head->next==nullptr)
+        return head;
+
+    node* middle = findMiddle(head);
+    node* leftHead = head;
+    node* rightHead = middle->next;
+    middle->next = nullptr;
+
+    leftHead = mergeSort(leftHead);
+    rightHead = mergeSort(rightHead);
+
+    return mergeLL(rightHead,leftHead);
+}
+
+
+int main(){
+    node* head = new node(-1);
+    node* mover = head;
+    int n;
+    do{
+        cin>>n;
+        node* temp = new node(n);
+        mover -> next = temp;
+        mover = mover->next;
+    }while(n!=100);
+
+    head=head->next;//removing the -1 node from the linked list
+
+    cout<<endl<<"your linked list : ";
+    mover = head;
+    while(mover != nullptr){
+        cout<<mover->data<<" ";
+        mover = mover->next;
+    }
+
+    //function call
+    head = mergeSort(head);
+
+    mover= head;
+    cout<<endl<<"The linked list after sorting : ";
+    while(mover!=nullptr){
+        cout<<mover->data<<" ";
+        mover = mover->next;
+    }
+
+    return 0;
+}
+*/
