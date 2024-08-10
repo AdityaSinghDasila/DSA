@@ -85,8 +85,6 @@ int main(){
     mover2->next = mover;
     
     
-    
-    
     cout<<endl<<"The first linked list : ";
     mover = head1;
     while(mover!=nullptr){
