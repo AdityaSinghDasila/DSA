@@ -172,3 +172,51 @@ int main(){
 }
 */
 
+//*************************arrays practice
+
+//kadanes algorithm
+/*
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+vector<int> maxSumSub(vector<int> arr){
+    //now we apply kadanes algorithm
+    int MaxSum = INT_MIN;
+    int sum =0;
+    int start=-1,s=-1,end=-1;
+    for(int i=0;i<arr.size();i++){
+        if(sum == 0){
+            s=i;
+        }
+        sum +=arr[i];
+        if(sum>MaxSum){
+            MaxSum = sum;
+            start = s;
+            end = i;
+        }
+        if(sum<0){
+            sum=0;
+        }
+    }
+    vector<int> ans ={MaxSum,start,end};
+    return ans;
+}
+int main(){
+
+    vector<int>arr ={2,-3,5,-1,2,54,-76,2,12,3,56,8,-9,6,4,-1,0};
+    cout<<"The array : ";
+    for(int i : arr){
+        cout<<i<<" ";
+    }
+
+    vector<int> ans = maxSumSub(arr);
+    //first index contains the maximum sum, the other two index contain start and end of that subarray
+    cout<<endl<<"The maximum sum is : "<<ans[0];
+    cout<<endl<<"The subarray responsible : ";
+    for(int i =ans[1];i<=ans[2];i++){
+        cout<<arr[i]<<" ";
+    }
+
+    return 0;
+}
+*/
