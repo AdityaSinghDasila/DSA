@@ -61,3 +61,114 @@ int main(){
 }
 */
 
+// merge sort : 2. Linked list
+/*
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+class node{
+    public: 
+    int data;
+    node* next;
+    // constructor
+    node(int data1){
+        data = data1;
+        next = nullptr;
+    }
+};
+
+node* findMiddle(node* head){
+    if(head==nullptr || head->next==nullptr)
+        return head;
+    node* f = head->next->next;
+    node* s = head;
+    while(f!=nullptr && f->next!=nullptr){
+        f=f->next->next;
+        s=s->next;
+    }
+    return s;
+}
+
+node* mergeLL(node* h1, node* h2){
+    node* dummy = new node(-1);
+    node* mover = dummy;
+    
+    node* temp1 = h1;
+    node* temp2 = h2;
+    while(temp1!=nullptr && temp2!=nullptr){
+        if(temp1->data<=temp2->data){
+            mover->next = temp1;
+            mover = temp1;
+            temp1=temp1->next;
+        }else{
+            mover->next = temp2;
+            mover = temp2;
+            temp2 = temp2->next;
+        }
+    }
+    //now we make sure both are cooked;
+    while(temp1!=nullptr){
+        mover->next=temp1;
+        mover = temp1;
+        temp1 = temp1->next;
+    }
+    while(temp2!=nullptr){
+        mover ->next = temp2;
+        mover = temp2;
+        temp2= temp2->next;
+    }
+    dummy=dummy->next;
+    return dummy;
+}
+
+node* sortLL(node* head){
+    if(head==nullptr || head->next==nullptr){
+        return head;
+    }
+    node* middle = findMiddle(head);
+    node* leftHead = head;
+    node* rightHead = middle->next;
+    middle->next = nullptr;
+    leftHead = sortLL(leftHead);
+    rightHead = sortLL(rightHead);
+    head = mergeLL(leftHead,rightHead);
+    return head;
+}
+
+int main(){ 
+
+    node* head = new node(-1);
+    node* mover = head;
+    cout<<"Enter the nodes, enter 100 to stop : ";
+    int n;
+    do{
+        cin>>n;
+        if(n!=100){
+            node* temp = new node(n);
+            mover->next = temp;
+            mover = temp;
+        }
+    }while(n!=100);
+    head = head->next;
+    //lets print the linked list before sorting
+    mover = head;
+    cout<<endl<<"The linked list : ";
+    while(mover!=nullptr){
+        cout<<mover->data<<" ";
+        mover = mover->next;
+    }
+
+    head = sortLL(head);
+
+    //lets print what we've cooked
+    mover = head;
+    cout<<endl<<"The sorted linked list : ";
+    while(mover!=nullptr){
+        cout<<mover->data<<" ";
+        mover= mover->next;
+    }
+
+    return 0;
+}
+*/
+
