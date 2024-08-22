@@ -220,3 +220,36 @@ int main(){
     return 0;
 }
 */
+
+//count subarrays whose sum is equal to k
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+
+int countSub(vector<int> arr, int k){
+    int preSum=0;    
+    int count=0;     
+    unordered_map<int,int>mike;
+    for(int i=0;i<arr.size();i++){
+        preSum+=arr[i];
+        if(mike.find(preSum-k)!=mike.end()){
+            count+=mike[preSum-k];  
+        }
+                   
+        mike[preSum]++;
+    }
+}
+
+int main(){
+    vector<int> arr ={1,2,3,1,1,1,1,3,3};
+    int k=6;
+    cout<<endl<<"The array : ";
+    for(int i: arr){
+        cout<<i<<" ";
+    }
+
+    int ans = countSub(arr,k);
+    cout<<endl<<"The number of subarrays whose sum is "<<k<<" are : "<<ans;
+
+    return 0;
+}
