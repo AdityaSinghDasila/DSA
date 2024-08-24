@@ -52,6 +52,36 @@ vector<int> iInorder(node* root){
     }
     return ans;
 }
+
+vector<int> iPostorder(node* root){
+    vector<int>ans;
+    if(root==nullptr){
+        return ans;
+    }
+    node* N = root;
+    stack<node*> steve;
+    while(true){
+        if(N!=nullptr){
+            steve.push(N);
+            N = N->left;
+        }
+        else{
+            if(steve.empty())
+            {
+                break;
+            }
+            N = steve.top();
+            if(N->right==nullptr){
+                ans.push_back(N->val);
+                steve.pop();
+                N = steve.top();
+            }else{
+                N = N->right;
+            }
+        }
+    }
+    return ans;
+}
 int main(){
     node* root = new node(1);
     root->left = new node(2);
@@ -63,9 +93,9 @@ int main(){
     root -> right -> left = new node(6);
     root -> right -> right = new node(7);
 
-    vector<int>ans = iPreorder(root);
-    vector<int>ans = iInorder(root);
-    vector<int>ans = Iinorder(root);
+    // vector<int>ans = iPreorder(root);
+    // vector<int>ans = iInorder(root);
+    vector<int>ans = iPostorder(root);
 
     for(int i: ans){
         cout<<i<<" ";
