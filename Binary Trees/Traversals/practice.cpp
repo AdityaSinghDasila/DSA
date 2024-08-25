@@ -210,6 +210,7 @@ int main(){
 }
 */
 
+/*
 #include <iostream>
 #include <bits/stdc++.h>
 using namespace std;
@@ -280,4 +281,61 @@ int main(){
         cout<<i<<" ";
     }
     return 0;   
+}
+*/
+
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+struct node{
+    int val;
+    node* left;
+    node* right;
+    node(int val1){
+        val = val1;
+        left = right = nullptr;
+    }
+};
+
+vector<int> iInorder(node* root){
+    vector<int>ans;
+    stack<node*>steve;
+    node* N = root;
+    while(true){
+        if(N!=nullptr){
+            steve.push(N);
+            N = N->left;
+        }
+        else{
+            if(steve.empty()) break;
+            N = steve.top();
+            steve.pop();
+            ans.push_back(N->val);
+            N = N->right;
+        }
+    }
+    return ans;
+};
+
+int main(){
+    //a simple bt
+    node* root = new node(1);
+    root->left = new node(2);
+    root ->right = new node(3);
+
+    root->left->left = new node(6);
+    root ->left->right = new node(7);
+
+    root->right ->left= new node(8);
+    root->right->right = new node(9);
+    vector<int>ans = iInorder(root);
+    // vector<int>ans = iPreorder(root);
+    // vector<int>ans = iPostorder(root);
+
+    cout<<endl<<"The traversal : ";
+    for(int i : ans){
+        cout<<i<<" ";
+    }
+
+    return 0;
 }
