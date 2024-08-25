@@ -334,6 +334,27 @@ vector<int> iPreorder(node* root){
     return ans;
 }
 
+vector<int> iPostorder(node* root){
+    //using 2 stacks
+    vector<int>ans;
+    stack<node*>steve;
+    node* N = root;
+    steve.push(N);
+    while(!steve.empty()){
+        N = steve.top();
+        steve.pop();
+        ans.push_back(N->val);
+        if(N->left!=nullptr){
+            steve.push(N->left);
+        }
+        if(N->right!=nullptr){
+            steve.push(N->right);
+        }
+    }
+    reverse(ans.begin(),ans.end());
+    return ans;
+}
+
 int main(){
     //a simple bt
     node* root = new node(1);
@@ -346,8 +367,8 @@ int main(){
     root->right ->left= new node(6);
     root->right->right = new node(7);
     // vector<int>ans = iInorder(root);
-    vector<int>ans = iPreorder(root);
-    // vector<int>ans = iPostorder(root);
+    // vector<int>ans = iPreorder(root);
+    vector<int>ans = iPostorder(root);
 
     cout<<endl<<"The traversal : ";
     for(int i : ans){
