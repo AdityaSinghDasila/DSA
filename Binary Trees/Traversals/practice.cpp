@@ -283,7 +283,7 @@ int main(){
     return 0;   
 }
 */
-
+/*
 #include <iostream>
 #include <bits/stdc++.h>
 using namespace std;
@@ -374,5 +374,82 @@ int main(){
     for(int i : ans){
         cout<<i<<" ";
     }
+    return 0;
+}//I GIVE UP ON iterative POSTORDER traversal through 1 stack
+*/
+
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+struct node{
+    int val;
+    node* left;
+    node* right;
+    node(int val1){
+        val = val1;
+        right = left = nullptr;
+    }
+};
+
+vector<vector<int>> allTraversal(node* root){
+    vector<vector<int>>ans;
+    if(root == nullptr)
+        return ans;
+    stack<pair<node*,int>>st;
+    st.push({root,1});
+    vector<int>pre,in,post;
+    while(!st.empty()){
+        pair<node*,int> N = st.top();
+        st.pop();
+        
+        if(N.second==1){
+            pre.push_back(N.first->val);
+            N.second++;
+            st.push(N);
+            if(N.first->left!=nullptr){
+                st.push({N.first->left,1});
+            }
+        }
+        else if(N.second == 2){
+            in.push_back(N.first->val);
+            N.second++;
+            st.push(N);
+            if(N.first->right!=nullptr){
+                st.push({N.first->right,1});
+            }
+        }
+        else if(N.second==3){
+            post.push_back(N.first->val);
+        }
+    }
+    ans.push_back(pre);
+    ans.push_back(in);
+    ans.push_back(post);
+    return ans;
+}
+
+int main(){
+    //making a bt
+    node* root = new node(1);
+
+    root->left = new node(2);
+    root->right = new node(3);
+
+    root->left->left = new node(4);
+    root->left->right = new node(5);
+
+    root->right->left = new node(6);
+    root->right->right = new node(7);
+
+    vector<vector<int>> ans = allTraversal(root);
+
+    cout<<endl<<"Traversals preorder, inorder and postorder : ";
+    for(auto i : ans){
+        for(int j : i){
+            cout<<j<<" ";
+        }
+        cout<<endl;
+    }
+
     return 0;
 }
