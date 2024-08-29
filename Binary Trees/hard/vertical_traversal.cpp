@@ -12,7 +12,7 @@ struct node{
 };
 
 void verticalOrder(node* root){
-    if(root==nullptr)
+     if(root==nullptr)
         return;
     //a queue that will store node*,row and col
     queue<pair<node*,pair<int,int>>> q;
@@ -41,7 +41,6 @@ void verticalOrder(node* root){
             }
         }
     }
-
 }
 
 int main(){
