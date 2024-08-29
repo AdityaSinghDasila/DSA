@@ -67,5 +67,5 @@ int main(){
     }
     cout<<endl<<"REached the end!";
     return 0;
-} //This is a naive sol..
+} //This is correct if for clashing nodes, only the node which comes later in LEVEL ORDER TRAVERSAL is considered, so for that this is correct
 //Keep the record of level, to compare the nodes at the same level and put the node which is larger.
