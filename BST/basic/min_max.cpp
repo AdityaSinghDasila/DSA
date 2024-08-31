@@ -32,7 +32,7 @@ node* findMin(node* root,int& mini){
 node* findMax(node* root, int& maxi){
     if(root == nullptr || root->right == nullptr){
         if(root!=nullptr)   
-            maxi = max(maxi,maxi);
+            maxi = max(maxi,root->val);
         return root;
     }
     return findMax(root->right,maxi);
