@@ -15,7 +15,7 @@ void preOrder(node* root)
 {
     if(root==nullptr)
         return;
-    cout<<endl<<root->val;
+    cout<<root->val<<" ";
     preOrder(root->left);
     preOrder(root->right);
 }
@@ -24,22 +24,22 @@ node* searchBST(node* root, int val)
 {
     if(root == nullptr || root->val == val)
         return root;
-    if(root->val>val)
+    if(root->val > val)
         return searchBST(root->left, val);
     else
         return searchBST(root->right,val);
 }
 
 int main(){
-    node* root = new node(1);
-    root->left = new node(2);
-    root->right = new node(3);
+    node* root = new node(8);
+    root->left = new node(5);
+    root->right = new node(12);
 
     root->left->left = new node(4);
-    root->left->right = new node(5);
+    root->left->right = new node(7);
 
-    root->right->left= new node(6);
-    root->right->right = new node(7);
+    root->right->left= new node(10);
+    root->right->right = new node(14);
 
     preOrder(root);
 
@@ -49,8 +49,8 @@ int main(){
 
     node* ans = searchBST(root,val);
     if(ans!=nullptr)
-    cout<<endl<<"found the node : "<<ans->val;
+        cout<<endl<<"found the node : "<<ans->val;
     else    
-        cout<<endl<<"The node was not found : ";
+        cout<<endl<<"The node was not found !";
     return 0;
 }
