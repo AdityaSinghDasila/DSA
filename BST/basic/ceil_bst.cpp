@@ -39,7 +39,11 @@ int main(){
     cin>>key;
     node* mover = root;
     while(mover!=nullptr){
-        if(mover->val > key){
+        if(mover->val == key){
+            ceil=mover->val;
+            break;
+        }
+        else if(mover->val > key){
             ceil = mover->val;
             mover = mover->left;
         }
