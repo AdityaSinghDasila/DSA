@@ -48,6 +48,14 @@ node* ins(node* root, int n){
     return root;    
 }
 
+void rev_inOrder(node* root){
+    if(root == nullptr)
+        return;
+    rev_inOrder(root->right);
+    cout<<root->val<<" ";
+    rev_inOrder(root->left);
+}
+
 int main(){
     
     node* root = new node(8);
@@ -61,14 +69,15 @@ int main(){
     root->right->right = new node(14);
 
     cout<<endl<<"The BST : ";
-    inOrder(root);
+    rev_inOrder(root);
+    // inOrder(root);
 
-    int n;
-    cout<<endl<<"Enter a node to insert  :";
-    cin>>n;
-    root = ins(root,n);
-    cout<<endl<<"BST after insertion : ";
-    inOrder(root);
+    // int n;
+    // cout<<endl<<"Enter a node to insert  :";
+    // cin>>n;
+    // root = ins(root,n);
+    // cout<<endl<<"BST after insertion : ";
+    // inOrder(root);
     
     // cout<<endl<<"Enter a node to delete : ";
     // cin>>n;
