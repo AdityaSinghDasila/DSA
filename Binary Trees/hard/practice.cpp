@@ -52,8 +52,8 @@ int main(){
     root->right->right = new node(8);
 
     postOrder(root);
-    node* p = root->left->left;
-    node* q = root->right->left;
+    node* p = root->left;
+    node* q = root->left->right->right;
 
     //fnc call for LCA function
     node* lca = findLca(root,p,q);
