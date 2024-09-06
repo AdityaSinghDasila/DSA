@@ -16,10 +16,12 @@ int main(){
         cin>>u>>v;
         adj[u].push_back(v);
         adj[v].push_back(u);
+        cout<<"done"<<endl;
     }
     
     for(int i =0;i<n+1;i++){
-        for(int j =0;j<n+1;j++){
+        cout<<endl<<i<<" : ";
+        for(int j =0;j<adj[i].size();j++){
             cout<<adj[i][j]<<" ";
         }
         cout<<endl;
