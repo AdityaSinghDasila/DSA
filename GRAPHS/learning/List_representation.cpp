@@ -15,7 +15,7 @@ int main(){
         int u,v;
         cin>>u>>v;
         adj[u].push_back(v);
-        adj[v].push_back(u);
+        adj[v].push_back(u);//This line will not be used in a directed graph because of unidirectionality
         cout<<"done"<<endl;
     }
     
