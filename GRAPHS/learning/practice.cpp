@@ -75,6 +75,16 @@ void bfs_traverse(vector<int> adj[],int n, int x){
         }
     }
 }
+
+void dfs_traverse(vector<int>adj[],int n,int x,vector<int>& visited){
+    visited[x]=1;
+    cout<<x<<" ";
+    for(int i : adj[x]){
+        if(visited[i]==0){
+            dfs_traverse(adj,n,i,visited);
+        }
+    }
+}
 int main(){
     
     //storing  graph
@@ -102,8 +112,11 @@ int main(){
     cout<<endl<<"Enter the starting node for the bfs and dfs traversal : ";
     int x;
     cin>>x;
-
+    vector<int> visited(n+1,0);
+    cout<<endl<<"The BFS traversal of the garph is : ";
     bfs_traverse(adj,n,x);
-    
+    cout<<endl<<"The DFS traversal of the graph is : ";
+    dfs_traverse(adj,n,x,visited);
+
     return 0;
 }
