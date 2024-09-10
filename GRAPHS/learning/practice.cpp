@@ -55,6 +55,10 @@ int main(){
     return 0;
 }
 */
+
+
+//Traversal
+/* 
 #include <iostream>
 #include <bits/stdc++.h>
 using namespace std;
@@ -117,6 +121,76 @@ int main(){
     bfs_traverse(adj,n,x);
     cout<<endl<<"The DFS traversal of the graph is : ";
     dfs_traverse(adj,n,x,visited);
+
+    return 0;
+}*/
+
+
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+void bfs_traverse(vector<int> adj[],int n, int x){
+    vector<int> visited(n+1,0);
+    queue<int>q;
+    q.push(x);
+    visited[x]=1;
+    while(!q.empty()){
+        int z = q.front();
+        q.pop();
+        cout<<z<<" ";
+        for(int i : adj[z]){
+            if(visited[i]==0){
+                q.push(i);
+                visited[i]=1;
+            }
+        }
+    }
+}
+void dfs_traverse(vector<int> adj[], int n,int x, vector<int>& visited){
+    visited[x]=1;
+    cout<<x<<" ";
+    for(int i : adj[x]){
+        if(visited[i]==0){
+            dfs_traverse(adj,n,i,visited);
+        }
+    }
+}
+
+int main(){
+
+    //storing graph
+    cout<<endl<<"Enter the number of nodes and edges : ";
+    int n,m;
+    cin>>n>>m;
+
+    vector<int> adj[n+1];
+    cout<<"Enter (m) edges : "<<endl;
+    for(int i =0;i<m;i++){
+        int u,v;
+        cin>>u>>v;
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+    }//the graph has been stored in an adjacency list
+
+    cout<<endl<<"The adjacency list : ";
+    for(int i=1;i<n+1;i++){
+        cout<<i<<" : ";
+        for(int j : adj[i]){
+            cout<<j<<" ";
+        }
+        cout<<endl;
+    }//the adjacency list has been printed
+    cout<<endl<<"Enter the starting node for the traversal of this graph : ";
+    int x;
+    cin>>x;
+    //calling BFS traversal algorithm on the graph
+    cout<<endl<<"The BFS traversal of this graph : ";
+    bfs_traverse(adj,n,x);//sending adjacency list over there
+
+    //for dfs traversal we have to send in a visited lits by reference
+    vector<int> dfs_visit(n+1,0);
+    cout<<endl<<"The DFS traversal of this graph : ";
+    dfs_traverse(adj,n,x,dfs_visit);
 
     return 0;
 }
