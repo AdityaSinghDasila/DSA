@@ -27,6 +27,23 @@ int main(){
             cout<<adj[i][j]<<" ";
         }
         cout<<endl;
+    }//so much size has been wasted on zeroes
+
+    vector<int> adL[n+1];
+    for(int i =0;i<n+1;i++){
+        for( int j =0; j<n+1;j++){
+            if(adj[i][j]==1 && i!=j){
+                adL[i].push_back(j);
+            }
+        }
+    }//now the Adjacency List has been made
+
+    for(int i=1;i<n+1;i++){
+        cout<<i<<" : ";
+        for(int j : adL[i]){
+            cout<<j<<" ";
+        }
+        cout<<endl;
     }
 
     return 0;
