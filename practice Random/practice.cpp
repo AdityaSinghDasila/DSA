@@ -222,6 +222,7 @@ int main(){
 */
 
 //count subarrays whose sum is equal to k
+/*
 #include <iostream>
 #include <bits/stdc++.h>
 using namespace std;
@@ -250,6 +251,68 @@ int main(){
 
     int ans = countSub(arr,k);
     cout<<endl<<"The number of subarrays whose sum is "<<k<<" are : "<<ans;
+
+    return 0;
+}*/
+
+
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+
+void merge(vector<int>&arr, int first, int middle, int last){
+    int i = first;
+    int j = middle+1;
+    vector<int>temp;
+    while(i<=middle && j<=last){
+        if(arr[i]<=arr[j]){
+            temp.push_back(arr[i]);
+            i++;
+        }else{
+            temp.push_back(arr[j]);
+            j++;
+        }
+    }
+    //now push the leftovers
+    while(i<=middle){
+        temp.push_back(arr[i]);
+        i++;
+    }  
+    while(j<=last){
+        temp.push_back(arr[j]);
+        j++;
+    }
+    //now temp to arr array
+    for(int i = 0;i<temp.size();i++){
+        arr[first + i] = temp[i];
+    }
+}
+void mergeSort(vector<int>& arr, int first, int last){
+    if(first==last){
+        return;
+    }
+    int middle = (first+last)/2;
+    mergeSort(arr,first,middle);
+    mergeSort(arr,middle+1,last);
+    merge(arr,first,middle,last);
+}
+
+int main(){
+
+    vector<int> arr = {23,4,6,90,12,3,6,2,0,26,8,18,21,1,34,66};
+    cout<<endl<<"The array before sorting : ";
+    
+    for(int i : arr){
+        cout<<i<<" ";
+    }
+    
+    cout<<endl<<"The array after sorting : ";
+
+    mergeSort(arr,0,arr.size()-1);
+
+    for(int i : arr){
+        cout<<i<<" ";
+    }
 
     return 0;
 }
