@@ -255,7 +255,7 @@ int main(){
     return 0;
 }*/
 
-
+/*
 #include <iostream>
 #include <bits/stdc++.h>
 using namespace std;
@@ -313,6 +313,116 @@ int main(){
     for(int i : arr){
         cout<<i<<" ";
     }
+
+    return 0;
+}
+*/
+
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+class node{
+    public:
+    int val;
+    node* next;
+    node(int val1){
+        val = val1;
+        next = nullptr;
+    }
+};
+
+node* findMiddle(node* head){
+    if(head==nullptr || head->next == nullptr || head->next->next == nullptr){
+        return head;
+    }
+    node* s = head;
+    node* f = head->next->next;
+    while(f!=nullptr && f->next!=nullptr){
+        f = f->next->next;
+        s = s->next;
+    }
+    return s;
+}
+
+node* merge2LL(node* h1, node* h2){
+    node* dummy = new node(-1);
+    node* mover = dummy;
+    node* mover1 = h1;
+    node* mover2 = h2;
+    while(mover1!=nullptr && mover2!=nullptr){
+        if(mover1->val <= mover2->val){
+            mover->next = mover1;
+            mover1 = mover1->next;
+            mover = mover->next;
+        }else{
+            mover->next = mover2;
+            mover2 = mover2->next;
+            mover = mover->next;
+        }
+    }
+    //make sure to exhaust both 
+    while(mover1!=nullptr){
+        mover ->next = mover1;
+        mover1 = mover1->next;
+        mover = mover->next;
+    }
+    while(mover2!=nullptr){
+        mover ->next = mover2;
+        mover2 = mover2->next;
+        mover = mover->next;
+    }
+    dummy = dummy->next;
+    return dummy;
+}
+
+
+node* mergeSortLL(node* head){
+    if(head==nullptr || head->next == nullptr){
+        return head;
+    }
+    node* middle = findMiddle(head);
+    node* left = head;
+    node* right = middle ->next;
+    middle ->next = nullptr;
+    left = mergeSortLL(left);
+    right = mergeSortLL(right);
+    return merge2LL(left,right);
+}
+
+int main(){
+    node* head = new node(-1);
+    node* mover = head;
+    int n =-1;
+    
+    do{
+        cin>>n;
+        if(n!=100){
+            node* temp = new node(n);
+            mover -> next = temp;
+            mover = mover->next;
+        }
+    }while(n!=100);
+    
+    head = head->next;
+
+    cout<<endl<<"The formed linked list is : ";
+    mover = head;
+    while(mover != nullptr){
+        cout<<mover->val<<" ->";
+        mover = mover->next;
+    }
+    cout<<"nullptr";
+
+    //sort the linked list by merge sort
+    head = mergeSortLL(head);
+
+    cout<<endl<<"The linked list after sorting is : ";
+    mover = head;
+    while(mover!=nullptr){
+        cout<<mover->val<<" ->";
+        mover = mover ->next;
+    }
+    cout<<"X";
 
     return 0;
 }
