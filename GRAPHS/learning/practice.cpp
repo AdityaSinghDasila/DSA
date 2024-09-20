@@ -197,6 +197,7 @@ int main(){
 */
 //APPLY BFS AND DFS in : 
 //1.adjacency list
+/*
 #include <iostream>
 #include <bits/stdc++.h>
 using namespace std;
@@ -265,6 +266,80 @@ int main(){
     vector<int> visited(n+1,0);
     cout<<endl<<"The DFS traversal of the graph : ";
     dfs_traverse(adj,x,visited);
+
+    return 0;
+}
+*/
+
+
+
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+
+void bfs_traversal(vector<vector<int>> adj, int x){
+    int n = adj.size();
+    vector<int> visited(n,0);
+    queue<int> q;
+    q.push(x);
+    visited[x]=1;
+    while(!q.empty()){
+        int z = q.front();
+        cout<<z<<" ";
+        q.pop();
+        for(int i : adj[z]){
+            if(visited[i]==0){
+                q.push(i);
+                visited[i]=1;
+            }
+        }
+    }
+}
+
+void dfs_traversal(vector<vector<int>> adj, int x, vector<int>& visited){
+    visited[x]=1;
+    cout<<x<<" ";
+    for(int i : adj[x]){
+        if(visited[i]==0){
+            dfs_traversal(adj,i,visited);
+        }
+    }
+}
+
+int main(){
+    cout<<endl<<"Enter the number of nodes and edges  : ";
+    int n,m;
+    cin>>n>>m;
+    vector<vector<int>> adj(n+1,vector<int>(0,0));
+    cout<<"Enter (m) edges : "<<endl;
+    
+    for(int i =0;i<m;i++){
+        int u,v;
+        cin>>u>>v;
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+    }//now the adjacency list has been made
+
+    cout<<endl<<"The adjacency list : "<<endl;
+    for(int i =1;i<n+1;i++){
+        cout<<i<<" : ";
+        for(int j : adj[i]){
+            cout<<j<<" ";
+        }
+        cout<<endl;
+    }
+
+    cout<<endl<<"Enter the starting node of the graph : ";
+    int x;
+    cin>>x;
+
+    cout<<endl<<"The BFS traversal of the graph : ";
+    bfs_traversal(adj,x);
+
+
+    vector<int> visited(n+1,0);
+    cout<<endl<<"The DFS traversal of the graph : ";
+    dfs_traversal(adj,x,visited);
 
     return 0;
 }
