@@ -318,6 +318,7 @@ int main(){
 }
 */
 
+/*
 #include <iostream>
 #include <bits/stdc++.h>
 using namespace std;
@@ -424,5 +425,56 @@ int main(){
     }
     cout<<"X";
 
+    return 0;
+}
+*/
+
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<int> maxSumSub(vector<int> arr){
+    vector<int> ans;
+    int sum =INT_MIN;
+    int current =0;
+    int n = arr.size();
+    int start=0,end=0;
+    for(int i = 0;i<n;i++){
+        if(current ==  0){
+            start = i;
+        }
+        current += arr[i];
+        if(current > sum){
+            sum = max(sum,current);
+            end = i;
+        }
+        if(current <0){
+            current =0;
+        }
+    }
+    ans.push_back(sum);
+    ans.push_back(start);
+    ans.push_back(end);
+    return ans;
+}
+
+int main(){
+    //kadanes algo is used to find the sub array with the maximum sum. also, this array may contain negative numbers
+    vector<int> arr = {3,5,1,6,-13,2,5,1,6,-1,4,-23,5,18,23,-13};
+    
+    cout<<endl<<"The array : ";
+    for(int i : arr){
+        cout<<i<<" ";
+    }
+
+    //function call
+    vector<int> ans = maxSumSub(arr);
+
+    cout<<endl<<"The maximum sum is : "<<ans[0]<<" from the subarray : [ ";
+    for(int i = ans[1];i<=ans[2];i++){
+        cout<<arr[i]<<" ";
+    }
+    cout<<" ]";
+    
     return 0;
 }
