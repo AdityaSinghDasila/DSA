@@ -429,6 +429,7 @@ int main(){
 }
 */
 
+/*
 #include <iostream>
 #include <bits/stdc++.h>
 using namespace std;
@@ -476,5 +477,70 @@ int main(){
     }
     cout<<" ]";
     
+    return 0;
+}
+*/
+
+
+
+
+//merge sort
+//1.on array
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+
+void merge(vector<int>& arr, int first,int middle, int last){
+    vector<int> temp;
+    int i =first;
+    int j = middle+1;
+    while(i<=middle && j<=last){
+        if(arr[i]<=arr[j]){
+            temp.push_back(arr[i]);
+            i++;
+        }else{
+            temp.push_back(arr[j]);
+            j++;
+        }
+    }
+    //now the left overs that (but those are also sorted)
+    while(i<=middle){
+        temp.push_back(arr[i]);
+        i++;
+    }
+    while(j<=last){
+        temp.push_back(arr[j]);
+        j++;
+    }
+    //now both the imaginary arrays have been exhausted and the temp vector has the sorted combination
+    for(int i=first; i<=last;i++){
+        arr[i] = temp[i-first];
+    }
+}
+
+void mergeSort(vector<int>& arr, int first, int last){
+    if(first == last)
+        return;
+    int middle  = (first+last)/2;
+    mergeSort(arr,first,middle);
+    mergeSort(arr,middle+1,last);
+    merge(arr,first,middle,last);
+}
+
+int main(){
+    vector<int> arr={84,23,54,2,56,2,1,6,3,8,47,63,23,5,7,9,0,3,4,4,78};
+    cout<<endl<<"The array before sorting : ";
+    for(int i : arr){
+        cout<<i<<" ";
+    }
+
+    //applying merge sort
+    mergeSort(arr,0,arr.size()-1);
+
+    cout<<endl<<"After sorting, the array becomes : ";
+    for(int i : arr){
+        cout<<i<<" ";
+    }
+
     return 0;
 }
