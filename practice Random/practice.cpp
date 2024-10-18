@@ -732,6 +732,7 @@ int main(){
 
 //merge sort 
 //1. array 
+/*
 #include <iostream>
 #include <bits/stdc++.h>
 using namespace std;
@@ -787,6 +788,124 @@ int main(){
     mergeSort(arr,0,arr.size()-1);
     for(int i:arr){
         cout<<i<<" ";
+    }
+
+    return 0;
+}
+*/
+
+
+//2.linked list
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+class node{
+    public :
+    int val;
+    node* next;
+    //constructor
+    node(int val1){
+        val = val1;
+        next = nullptr;
+    }
+};
+
+node* mergeSortedLL(node* h1, node* h2){
+    node* dummy = new node(-1);
+    node* mover = dummy;
+
+    node* temp1 = h1;
+    node* temp2 = h2;
+    while(temp1!=nullptr && temp2!=nullptr){
+        if(temp1->val <= temp2->val){
+            mover->next = temp1;
+            temp1 = temp1->next;
+            mover = mover->next;
+        }else{
+            mover ->next = temp2;
+            temp2=temp2->next;
+            mover = mover->next;
+        }
+    }
+    //now one of the temp has been exhausted, time for the other temp to fill in:
+    while(temp1!=nullptr){
+        mover->next = temp1;
+        temp1= temp1->next;
+        mover = mover->next;
+    }
+
+    while(temp2!=nullptr){
+        mover->next = temp2;
+        temp2 = temp2->next;
+        mover = mover ->next;
+    }
+    //now since both the temp have been exhausted, time to move dummy to eliminate the fake header
+    dummy = dummy->next;
+    return dummy;
+}
+
+node* findMiddle(node* head){
+    if(head==nullptr || head->next==nullptr){
+        return head;
+    }
+    node* f= head->next->next;
+    node * s = head;
+    while(f!=nullptr && f->next!=nullptr){
+        f = f->next->next;
+        s = s->next;
+    }
+    return s;
+}
+
+
+node* mergeSortLL(node* head){
+    if(head==nullptr || head->next==nullptr){
+        return head;
+    }
+    node* middle = findMiddle(head);
+    node* left = head;
+    node* right = middle->next;
+    middle->next = nullptr;
+    
+    //now send the two halfs again, so that they come back sorted
+    left = mergeSortLL(left);
+    right = mergeSortLL(right);
+    
+    //now that you have two sorted linked list with you, and now you want to merge them to return them as a single linked list:
+    head  = mergeSortedLL(left,right);
+    return head;
+}
+
+int main(){
+    node* head = new node(-1);
+    node* mover = head;
+    cout<<endl<<"Enter the nodes : ";
+    int n=0;
+    do{
+        cin>>n;
+        if(n!=100){
+            node* temp = new node(n);
+            mover->next = temp;
+            mover=mover->next;
+        }
+    }while(n!=100);
+    head = head->next;
+
+    cout<<endl<<"The linked list formed is : ";
+    mover = head;
+    while(mover!=nullptr){
+        cout<<mover->val<<" ";
+        mover = mover->next;
+    }
+
+
+    head = mergeSortLL(head);
+
+    cout<<endl<<"The linked list after sorting is : ";
+    mover = head;
+    while(mover!=nullptr){
+        cout<<mover->val<<" ";
+        mover = mover->next;
     }
 
     return 0;
