@@ -938,6 +938,16 @@ void BFS_traversal(vector<vector<int>>& adj, int x){
     }
 }
 
+void DFS_traversal(vector<vector<int>> adj, int x, vector<int>& visited){
+    cout<<x<<" ";
+    visited[x]=1;
+    for(int i : adj[x]){
+        if(visited[i]==0){
+            DFS_traversal(adj,i,visited);
+        }
+    }
+}
+
 int main(){
     cout<<endl<<"Enter the number of nodes and edges : ";
     int n,m;
@@ -961,6 +971,9 @@ int main(){
     cout<<endl<<"The BFS traversal of the graph : ";
     BFS_traversal(adj,x);
 
+    cout<<endl<<"The DFS traversal of the graph : ";
+    vector<int> visited(n+1,0);
+    DFS_traversal(adj,x,visited);
 
 
     return 0;   
