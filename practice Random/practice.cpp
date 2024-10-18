@@ -796,6 +796,7 @@ int main(){
 
 
 //2.linked list
+/*
 #include <iostream>
 #include <bits/stdc++.h>
 using namespace std;
@@ -909,4 +910,58 @@ int main(){
     }
 
     return 0;
+}
+*/
+
+
+//DFS and BFS algorithm
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+
+void BFS_traversal(vector<vector<int>>& adj, int x){
+    int n = adj.size();
+    vector<int> visited(n,0);
+    queue<int>q;
+    q.push(x);
+    visited[x]=1;
+    while(!q.empty()){
+        int n = q.front();
+        cout<<n<<" ";
+        q.pop();
+        for(int i : adj[n]){
+            if(visited[i]==0){
+                visited[i]=1;
+                q.push(i);
+            }
+        }
+    }
+}
+
+int main(){
+    cout<<endl<<"Enter the number of nodes and edges : ";
+    int n,m;
+    cin>>n>>m;
+    
+    
+    vector<vector<int>> adj(n+1,vector<int>(0,0));  
+    cout<<endl<<"Enter the edges : ";
+    for(int i =0;i<m;i++){
+        int u,v;
+        cin>>u>>v;
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+    }//the adjacency list has been made
+
+
+    cout<<endl<<"Enter the starting node : ";
+    int x;
+    cin>>x;
+    //lets start with BFS
+    cout<<endl<<"The BFS traversal of the graph : ";
+    BFS_traversal(adj,x);
+
+
+
+    return 0;   
 }
