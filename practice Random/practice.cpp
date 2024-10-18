@@ -727,3 +727,67 @@ int main(){
     return 0;
 }
 */
+
+
+
+//merge sort 
+//1. array 
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+
+void merge(vector<int>& arr, int first,int middle, int last){
+    vector<int> temp;
+    int i=first,j=middle+1;
+    while(i<=middle && j<=last){
+        if(arr[i]<=arr[j]){
+            temp.push_back(arr[i]);
+            i++;
+        }else{  
+            temp.push_back(arr[j]);
+            j++;
+        }
+    }
+    //now that one of them is exhausted, time for the other one to fill in
+    while(i<=middle){
+        temp.push_back(arr[i]);
+        i++;
+    }
+    while(j<=last){
+        temp.push_back(arr[j]);
+        j++;
+    }
+    //now temp has the sorted array that is supposed to be in arr from first index to last index
+    //time to fill
+    for(int i = first;i<=last;i++){
+        arr[i]=temp[i-first];
+    }
+}
+
+void mergeSort(vector<int>& arr, int first, int last){
+    if(first>=last){
+        return;
+    }
+    int middle = (first+last)/2;
+    mergeSort(arr,first,middle);
+    mergeSort(arr,middle+1,last);
+    merge(arr,first,middle,last);
+}
+
+int main(){
+
+    vector<int> arr ={56,34,23,75,1,56,2,7,4,3,8,4,2,0,7,32,4,234,5,89,79};
+
+    cout<<endl<<"The vector before sorting : ";
+    for(int i:arr){
+        cout<<i<<" "; 
+    }
+
+    cout<<endl<<"The vector after sorting : ";
+    mergeSort(arr,0,arr.size()-1);
+    for(int i:arr){
+        cout<<i<<" ";
+    }
+
+    return 0;
+}
