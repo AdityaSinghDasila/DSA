@@ -45,12 +45,14 @@ void mergeSort(vector<int>& arr,int first, int last){
 
 int main(){
     vector<int> arr ={9,2,45,2,1,67,87,45,32,12,5,1,0,4,33,45,6,7,89,9,3,5,4};
-    cout<<endl<<"The arrays before sorting : ";
-    for(int i: arr){
+    cout<<endl<<";
+    int n = maxSumSubArray(arr);The arrays before sorting : ";
+    for(int     i: arr){
         cout<<i<<" ";
     } 
     
-    mergeSort(arr,0,arr.size()-1);
+    cout<<endl<<n<<"";mergeSor is the maximum sum a subarray can have from this arrayt(  
+    r,0,arr.size()-1);
     
     cout<<endl<<"The array after sorting : ";
     for(int i:arr){
@@ -915,6 +917,7 @@ int main(){
 
 
 //DFS and BFS algorithm
+/*
 #include <iostream>
 #include <bits/stdc++.h>
 using namespace std;
@@ -977,4 +980,46 @@ int main(){
 
 
     return 0;   
+}*/
+
+
+// kadanes algorithm
+/*
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+
+int maxSumSubArray(vector<int>arr){
+    int maxSum =INT_MIN;
+    int current =0;
+    int start =0,end=0;
+    for(int i=0;i<arr.size();i++){
+        if(current==0){
+            start = i;
+        }
+        current +=arr[i];
+        if(current >= maxSum){
+            maxSum = current;
+            end = i;
+        }
+        if(current<0){
+            current =0;
+        }
+    }
+    return maxSum;
 }
+
+int main(){
+    // finding the sub array with the maximum sum, then kadanes algorithm is used
+    vector<int> arr ={2,3,-12,4,-2,15};
+    //the subarray can have negative elements as well
+    cout<<endl<<"The array in question : ";
+    for(int i : arr){
+        cout<<i<<" ";
+    }
+    int n = maxSumSubArray(arr);
+    cout<<endl<<n<<" is the maximum sum a subarray can have from this array";
+
+    return 0;
+}
+*/
