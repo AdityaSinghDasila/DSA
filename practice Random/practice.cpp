@@ -1023,3 +1023,69 @@ int main(){
     return 0;
 }
 */
+
+
+//merge sort 
+//1.arrays
+
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+
+void merge(vector<int>& arr, int first, int middle, int last){
+    vector<int> temp;
+    int i = first;
+    int j = middle+1;
+    while(i<= middle && j<= last){
+        if(arr[i]<=arr[j]){
+            temp.push_back(arr[i]);
+            i++;
+        }else{
+            temp.push_back(arr[j]);
+            j++;
+        }
+    }
+    //now try to insert the leftover
+    while(i<=middle){
+        temp.push_back(arr[i]);
+        i++;
+    }
+    while(j<=last){
+        temp.push_back(arr[j]);
+        j++;
+    }
+    //now since the temp vector now contains the element(sorted) from first to last, now lets start from FIRST to LAST
+    for(int z = first;z<=last;z++){
+        arr[z]=temp[z-first];
+    }
+}
+
+void mergeSort(vector<int>& arr, int first, int last){
+    if(first==last){
+        return;
+    }
+    int middle = (first+last)/2;
+    mergeSort(arr,first,middle);
+    mergeSort(arr,middle+1,last);
+    merge(arr,first,middle,last);
+}
+
+int main(){
+
+    vector<int> arr = {7,3,5,2,87,4,2,67,34,23,5,2,1,0,6,89,66,53,23,56,22,15};
+    cout<<endl<<"The array before sorting : ";
+    for(int x : arr){
+        cout<<x<<" ";
+    }
+
+    mergeSort(arr,0,arr.size()-1);
+
+    //after merge sort, the array becomes : 
+
+    cout<<endl<<"The array after sorting : ";
+    for(int x : arr){
+        cout<<x<<" ";
+    }
+
+    return 0;
+}
