@@ -1027,7 +1027,7 @@ int main(){
 
 //merge sort 
 //1.arrays
-
+/*
 #include <iostream>
 #include <bits/stdc++.h>
 using namespace std;
@@ -1089,3 +1089,119 @@ int main(){
 
     return 0;
 }
+*/
+
+//2. Linked list sort using merge sort
+/*
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+class node{
+    public: 
+    int val;
+    node* next;
+    node(int val1){
+        val = val1;
+        next = nullptr;
+    }
+};
+
+node* findMiddle(node* head){
+    node* f = head->next->next;
+    node* s = head;
+    while(f!=nullptr && f->next!=nullptr){
+        f=f->next->next;
+        s=s->next;
+    }
+    cout<<endl<<"middle : "<<s->val;
+    return s;
+}
+
+node* mergeLL(node* h1, node* h2){
+    node* dummy = new node(-1);
+    node* mover = dummy;
+
+    node* temp1 = h1;
+    node* temp2 = h2;
+
+    while(temp1!=nullptr && temp2!=nullptr){
+        if(temp1->val <= temp2->val){
+            mover->next = temp1;
+            temp1 = temp1->next;
+            mover = mover->next;
+        }else{
+            mover->next = temp2;
+            temp2 = temp2->next;
+            mover = mover->next;
+        }
+    }
+
+    //now the turn of the non exhausted LL
+    while(temp1!=nullptr){
+        mover ->next = temp1;
+        temp1 = temp1->next;
+        mover = mover->next;
+    }
+    while(temp2!=nullptr){
+        mover->next = temp2;
+        temp2 = temp2->next;
+        mover = mover->next;
+    }
+
+    //now that the linked list is merged and sorted, time for the front of the dummy node to be laid off
+    dummy = dummy->next;
+    return dummy;
+}
+
+node* mergeSortLL(node* head){
+    if(head == nullptr || head->next == nullptr){
+        return head;
+    }
+    node* middle = findMiddle(head);
+    node* left = head;
+    node* right = middle->next;
+    middle->next = nullptr;
+    left = mergeSortLL(left);
+    right = mergeSortLL(right);
+    //now that the left and right are SORTED (either through being single node or being sorted from perivous calls), now lets merge these left and right linked list while maintaining the sorted nature
+    head = mergeLL(left,right);
+    return head;
+}
+
+int main(){
+
+    node* head = new node(-1);    
+    node* mover = head;
+    int n=0;
+    cout<<"Enter the values (100 to exit) :--- ";
+    do{
+        cin>>n;
+        if(n!=100){
+            node* temp = new node(n);
+            mover->next = temp;
+            mover = mover->next;
+        }
+    }while(n!=100);
+
+    head = head->next;
+    cout<<endl<<"The formed linked list : ";
+    mover = head;
+    while(mover!=nullptr){
+        cout<<mover->val<<" ";
+        mover = mover->next;
+    }
+
+    //now lets sort the linked list
+    head = mergeSortLL(head);
+
+    mover = head;
+    cout<<endl<<"The SORTED linked List  :-  ";
+    while(mover!=nullptr){
+        cout<<mover->val<<" ";
+        mover = mover->next;
+    }
+
+    return 0;
+
+}
+*/
