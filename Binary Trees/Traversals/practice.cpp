@@ -459,6 +459,7 @@ int main(){
 // revision bt
 
 //1.traversals through recursion : 
+/*
 #include <iostream>
 #include <bits/stdc++.h>
 using namespace std;
@@ -526,6 +527,63 @@ int main(){
 
     cout<<endl<<"The postorder traversal of the binary tree : ";
     postOrderT(root);
+
+    return 0;
+
+}*/
+
+
+// 2.BFS traversal of Binary tree
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+class node{
+    public:
+    int val;
+    node* left;
+    node* right;
+    node(int val1){
+        val = val1;
+        left = right= nullptr;
+    }
+};
+
+void bfsT(node* root){
+    queue<node*> q;
+    q.push(root);
+    cout<<"The level order traversal : ";
+    while(!q.empty()){
+        node* n = q.front();
+        q.pop();
+        cout<<n->val<<" ";
+        if(n->left!=nullptr){
+            q.push(n->left);
+        }
+        if(n->right!=nullptr){
+            q.push(n->right);
+        }
+    }
+}
+
+int main(){
+
+    node* root = new node(1);
+    root->left = new node(2);
+    root->right = new node(11);
+
+    root->left->left = new node(5);
+    root->left->right = new node(6);
+
+    root->right->left = new node(0);
+    root->right->right = new node(56);
+
+    root->left->right->right = new node(3);
+    
+    root->left->right->right->right = new node(2);
+    root->left->right->right->right->left = new node(97);
+
+    //For the level order traversal which is the BFS traversal
+    bfsT(root);
 
     return 0;
 
