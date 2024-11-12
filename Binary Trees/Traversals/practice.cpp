@@ -534,6 +534,7 @@ int main(){
 
 
 // 2.BFS traversal of Binary tree
+/*
 #include <iostream>
 #include <bits/stdc++.h>
 using namespace std;
@@ -549,6 +550,9 @@ class node{
 };
 
 void bfsT(node* root){
+    if(root== nullptr){
+        return;
+    }
     queue<node*> q;
     q.push(root);
     cout<<"The level order traversal : ";
@@ -586,5 +590,90 @@ int main(){
     bfsT(root);
 
     return 0;
+
+}
+*/
+
+
+//Iterative method for traversal :
+
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+class node{
+    public : 
+    int val;
+    node* left;
+    node* right;
+    node(int val1){
+        val= val1;
+        left = right= nullptr;
+    }
+};
+
+void iterativePreorder(node* root){
+
+    if(root == nullptr)
+        return;
+    stack<node*> steve;
+    //in stack if you want to go left right , fill in the right first into the stack
+    steve.push(root);
+    while(!steve.empty()){
+        node* n = steve.top();
+        steve.pop();
+        cout<<n->val<<" ";
+        if(n->right!=nullptr){
+            steve.push(n->right);
+        }
+        if(n->left!=nullptr){
+            steve.push(n->left);
+        }
+    }
+}
+
+void iterativeInorder(node* root){
+    stack<node*> steve;
+    node* n  = root;
+    while(true){
+        if(n != nullptr){
+            steve.push(n);
+            n = n->left;
+        }
+        else{
+            if(steve.empty()) 
+                break;
+            n = steve.top();
+            steve.pop();
+            cout<<n->val<<" ";
+            n = n->right;
+        }
+    }
+}
+
+int main(){
+
+    node* root = new node(1);
+    root->left = new node(2);
+    root->right = new node(11);
+
+    root->left->left = new node(5);
+    root->left->right = new node(6);
+
+    root->right->left = new node(0);
+    root->right->right = new node(56);
+
+    root->left->right->right = new node(3);
+    
+    root->left->right->right->right = new node(2);
+    root->left->right->right->right->left = new node(97);
+
+    cout<<endl<<"The preorder traversal of the binary tree is : ";
+    iterativePreorder(root);
+
+    cout<<endl<<"The inorder traversal of the binary tree is : ";
+    iterativeInorder(root);
+
+    return 0;
+    //post order krne ka mann ni hora lmao
 
 }
