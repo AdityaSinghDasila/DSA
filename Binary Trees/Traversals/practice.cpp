@@ -378,6 +378,7 @@ int main(){
 }//I GIVE UP ON iterative POSTORDER traversal through 1 stack
 */
 
+/*
 #include <iostream>
 #include <bits/stdc++.h>
 using namespace std;
@@ -452,4 +453,80 @@ int main(){
     }
 
     return 0;
+}
+*/
+
+// revision bt
+
+//1.traversals through recursion : 
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+class  node{
+    public:
+    int val;
+    node* left;
+    node* right;
+    node(int val1){
+        val = val1;
+        left = right = nullptr;
+    }
+};
+
+void preOrderT(node* root){
+    //root l r
+    if(root==nullptr){
+        return;
+    }
+    cout<<root->val<<" ";
+    preOrderT(root->left);
+    preOrderT(root->right);
+}
+void inOrderT(node* root ){
+    if(root == nullptr){
+        return;
+    }
+    inOrderT(root->left);
+    cout<<root->val<<" ";
+    inOrderT(root->right);
+}
+void postOrderT(node* root ){
+    if(root==nullptr){
+        return;
+    }
+    postOrderT(root->left);
+    postOrderT(root->right);
+    cout<<root->val<<" ";
+}
+
+int main(){
+
+    //lets make a binary tree first
+    node* root = new node(1);
+    root->left = new node(2);
+    root->right = new node(11);
+
+    root->left->left = new node(5);
+    root->left->right = new node(6);
+
+    root->right->left = new node(0);
+    root->right->right = new node(56);
+
+    root->left->right->right = new node(3);
+    
+    root->left->right->right->right = new node(2);
+    root->left->right->right->right->left = new node(97);
+
+    //now traversal : 
+    cout<<endl<<"The preorder traversal of the Binary tree : ";
+    preOrderT(root);
+
+    cout<<endl<<"The Inorder traversal of the binary tree : ";
+    inOrderT(root);
+
+    cout<<endl<<"The postorder traversal of the binary tree : ";
+    postOrderT(root);
+
+    return 0;
+
 }
