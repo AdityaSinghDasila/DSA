@@ -1,3 +1,5 @@
+//The diameter of a bianary tree is the longest distance in the binary tree. the distance may or may not contain root
+
 #include <iostream>
 #include <bits/stdc++.h>
 using namespace std;
