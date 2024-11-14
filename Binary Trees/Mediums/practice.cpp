@@ -174,6 +174,7 @@ int main(){
 */
 
 //traversal practice
+
 #include <iostream>
 #include <bits/stdc++.h>
 using namespace std;
@@ -236,6 +237,25 @@ void levelOrder(node* root){
     }
 }
 
+void findHeight(node* root, int& height, int count){
+    if(root==nullptr){
+        return;
+    }
+    height = max(height,count);
+    findHeight(root->left,height,count+1);
+    findHeight(root->right,height,count+1);
+}
+
+void findMaxSumPath(node* root,int sum, int& maxSum){
+    if(root==nullptr){
+        return;
+    }
+    sum = sum + root->val;
+    maxSum = max(maxSum,sum);
+    findMaxSumPath(root->left,sum,maxSum);
+    findMaxSumPath(root->right,sum,maxSum);
+}
+
 int main(){
 
     node* root = new node(1);
@@ -262,6 +282,16 @@ int main(){
 
     cout<<endl<<"The level order traversal of the binary tree : ";
     levelOrder(root);
+
+    int height = 0;
+    int count =1;
+    findHeight(root,height,count);
+    cout<<endl<<"The height of the binary tree : "<<height;
+
+    int sum=0;
+    int maxSum=0;
+    findMaxSumPath(root,sum,maxSum);
+    cout<<endl<<"The maximum sum from any path in the binary tree : "<<maxSum;
 
     return 0;
 }
