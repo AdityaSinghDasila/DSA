@@ -400,7 +400,54 @@ void levelOrder(node* root){
     }
 }
 
+void findHeight(node* root, int& height, int current){
+    if(root==nullptr){
+        return;
+    }
+    height = max(height,current);
+    findHeight(root->left,height,current+1);
+    findHeight(root->right,height,current+1);
+}
+
+void findMaxSum(node* root, int& maxSum, int current){
+    if(root==nullptr){
+        return;
+    }
+    current = current + root->val;
+    maxSum = max(maxSum,current);
+    findMaxSum(root->left,maxSum,current);
+    findMaxSum(root->right,maxSum,current);
+}
+
+int findDiameter(node* root,int& diameter){
+    if(root==nullptr){
+        return 0;
+    }
+    int left = findDiameter(root->left,diameter);
+    int right = findDiameter(root->right,diameter);
+    diameter = max(diameter,left+right+1);
+    return max(left,right)+1;
+
+}
+
+int findBalance(node* root){
+    if(root == nullptr){
+        return 0;
+    }
+    int left = findBalance(root->left);
+    int right = findBalance(root->right);
+    if(left==-1 || right==-1){
+        return -1;
+    }
+    if(abs(left-right)>1){
+        cout<<endl<<"this is the point of imbalance : "<<root->val;
+        return -1;
+    }
+    return max(left,right)+1;
+}
+
 int main(){
+
     node* root = new node(1);
     root->left = new node(2);
     root->right = new node(11);
@@ -427,6 +474,29 @@ int main(){
 
     cout<<endl<<"The level order traversal of the binary tree: ";
     levelOrder(root);
+
+    int height=0,current=1;
+    findHeight(root,height,current);
+    cout<<endl<<"The height of the binary tree is : "<<height;
+
+    int maxSum=0;
+    current=0;
+    findMaxSum(root,maxSum,current);
+    cout<<endl<<"The maximum path sum is : "<<maxSum;
+
+
+    //diameter in the binary tree is the longest distance in the tree, which may or may not contain the root
+    int diameter=0;
+    findDiameter(root,diameter);
+    cout<<endl<<"The diameter of the binary tree is : "<<diameter;
+
+    int balance=1;
+    balance = findBalance(root);
+    if(balance!=-1){
+        cout<<endl<<"The binary tree is BALANCED!";
+    }else{
+        cout<<endl<<"The binary tree is NOT balanced!";
+    }
 
     return 0;
 }
