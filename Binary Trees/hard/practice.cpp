@@ -141,6 +141,7 @@ int main(){
 */
 
 //practice
+/*
 #include <iostream>
 #include <bits/stdc++.h>
 using namespace std;
@@ -235,6 +236,156 @@ int main(){
         cout<<endl<<"The two binary trees are SYMMETRICAL!!";
     }
 
+
+    return 0;
+}
+*/
+
+//practice
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+
+class node{
+    public: 
+    int val;
+    node* left;
+    node* right;
+    node(int val1){
+        val = val1;
+        left = right = nullptr;
+    }
+};
+
+void preOrder(node* root){
+    if(root == nullptr){
+        return;
+    }
+    cout<<root->val<<" ";
+    preOrder(root->left);
+    preOrder(root->right);
+}
+
+void inOrder(node* root){
+    if(root==nullptr){
+        return;
+    }
+    inOrder(root->left);
+    cout<<root->val<<" ";
+    inOrder(root->right);
+}
+
+void postOrder(node* root){
+    if(root==nullptr){
+        return;
+    }
+    postOrder(root->left);
+    postOrder(root->right);
+    cout<<root->val<<" ";
+}
+
+void levelOrder(node* root){
+    if(root==nullptr){
+        return;
+    }
+    queue<node*> q;
+    q.push(root);
+    while(!q.empty()){
+        node* n = q.front();
+        q.pop();
+        cout<<n->val<<" ";
+        if(n->left!=nullptr){
+            q.push(n->left);
+        }
+        if(n->right!=nullptr){
+            q.push(n->right);
+        }
+    }
+}
+
+void findHeight(node* root, int& height, int current){
+    if(root == nullptr){
+        return;
+    }
+    height = max(height,current);
+    findHeight(root->left,height,current+1);
+    findHeight(root->right,height,current+1);
+}
+
+void findMaxPathSum(node* root,int& maxSum, int current){
+    if(root== nullptr){
+        return;
+    }
+    current += root->val;
+    maxSum = max(maxSum,current);
+    findMaxPathSum(root->left,maxSum,current);
+    findMaxPathSum(root->right,maxSum,current);
+}
+
+int findDiameter(node* root, int& diameter){
+    if(root==nullptr){
+        return 0;
+    }
+    int left = findDiameter(root->left, diameter);
+    int right = findDiameter(root->right, diameter);
+
+    diameter = max(diameter, left + right +1);
+
+    return max(left,right)+1;
+}
+
+void checkBalance(node* root){
+    
+}
+
+
+int main(){
+
+    node* root = new node(1);
+    root->left = new node(2);
+    root->right = new node(11);
+
+    root->left->left = new node(5);
+    root->left->right = new node(6);
+
+    root->right->left = new node(0);
+    root->right->right = new node(56);
+
+    root->left->right->right = new node(3);
+    
+    root->left->right->right->right = new node(2);
+    root->left->right->right->right->left = new node(97);
+
+    cout<<endl<<"The preOrder traversal of the binary tree : ";
+    preOrder(root);
+
+    cout<<endl<<"The inOrder traversal of the binary tree : ";
+    inOrder(root);
+
+    cout<<endl<<"The postOrder traversal of the binary tree : ";
+    postOrder(root);
+
+    cout<<endl<<"The levelOrder traversal of the binary tree : ";
+    levelOrder(root);
+
+    //height of bt
+    int height=0,current=1;
+    findHeight(root,height,current);
+    cout<<endl<<"The height of the binary tree is : "<<height;
+
+    //path with max sum, find the sum
+    current = 0;
+    int maxSum = INT_MIN;
+    findMaxPathSum(root,maxSum,current);;
+    cout<<"The maximum sum of the path with max sum  : "<<maxSum;
+
+    //diameter of a bt
+    int diameter = 0;
+    findDiameter(root, diameter);
+    cout<<endl<<"The diameter of the binary tree is : "<<diameter;
+
+    //check if bt is balanced or not (the difference should never be more than 1)
+    checkBalance(root);
 
     return 0;
 }
