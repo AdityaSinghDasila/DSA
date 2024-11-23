@@ -334,8 +334,20 @@ int findDiameter(node* root, int& diameter){
     return max(left,right)+1;
 }
 
-void checkBalance(node* root){
-    
+int checkBalance(node* root){
+    if(root == nullptr){
+        return 0;
+    }
+    int left = checkBalance(root->left);
+    int right = checkBalance(root->right);
+    if(left ==-1 || right ==-1){
+        return -1;
+    }
+    if(abs(left-right)>1){
+        cout<<endl<<"found you : "<<root->val<<" where left/right: "<<left<<"/"<<right;
+        return -1;
+    }
+    return max(left,right)+1;
 }
 
 
@@ -385,7 +397,12 @@ int main(){
     cout<<endl<<"The diameter of the binary tree is : "<<diameter;
 
     //check if bt is balanced or not (the difference should never be more than 1)
-    checkBalance(root);
+    int ansBalance = checkBalance(root);
+    if(ansBalance==-1){
+        cout<<endl<<"The tree is not balanced!"; 
+    }else{
+        cout<<endl<<"The tree is Balanced.";
+    }
 
     return 0;
 }
