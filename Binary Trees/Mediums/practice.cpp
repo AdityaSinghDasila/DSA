@@ -503,3 +503,123 @@ int main(){
     return 0;
 }
 */
+
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+
+class node{
+    public :
+    int val;
+    node* left;
+    node* right;
+    node(int val1){
+        val = val1;
+        left = right = nullptr;
+    }
+};
+
+void preOrder(node* root){
+    if(root == nullptr){
+        return;
+    }
+    cout<<root->val<<" ";
+    preOrder(root->left);
+    preOrder(root->right);
+}
+
+void inOrder(node* root){
+    if(root==nullptr){
+        return;
+    }
+    inOrder(root->left);
+    cout<<root->val<<" ";
+    inOrder(root->right);
+}
+
+void postOrder(node* root){
+    if(root== nullptr){
+        return;
+    }
+    postOrder(root->left);
+    postOrder(root->right);
+    cout<<root->val<<" ";
+}
+
+void levelOrder(node* root){
+    if(root == nullptr){
+        return ;
+    }
+    queue<node*> q;
+    q.push(root);
+    while(!q.empty()){
+        node* n = q.front();
+        q.pop();
+        cout<<n->val<<" ";
+        if(n->left!=nullptr){
+            q.push(n->left);
+        }
+        if(n->right!=nullptr){
+            q.push(n->right);
+        }
+    }
+}
+
+void findHeight(node* root, int& height, int current){
+    if(root==nullptr){
+        return;
+    }
+    height = max(height,current);
+    findHeight(root->left,height,current+1);
+    findHeight(root->right,height,current+1);
+}
+
+int findDiameter(node* root, int& diameter)
+{
+    if(root== nullptr){
+        return 0;
+    }
+    int left = findDiameter(root->left,diameter);
+    int right = findDiameter(root->right,diameter);
+    diameter = max(diameter, left+right+1);
+    return max(left,right)+1;
+}
+int main(){
+
+    node* root = new node(1);
+    root->left = new node(2);
+    root->right = new node(11);
+
+    root->left->left = new node(5);
+    root->left->right = new node(6);
+
+    root->right->left = new node(0);
+    root->right->right = new node(56);
+
+    root->left->right->right = new node(3);
+    
+    root->left->right->right->right = new node(2);
+    root->left->right->right->right->left = new node(97);
+
+    cout<<endl<<"The preOrder, inOrder, postOrder and levelOrder traversals of the binary tree :- "<<endl;
+    preOrder(root);
+    cout<<endl;
+    inOrder(root);
+    cout<<endl;
+    postOrder(root);
+    cout<<endl;
+    levelOrder(root);
+
+
+    //height and diameter 
+    int height=0;
+    int current = 1;
+    findHeight(root,height,current);
+    cout<<endl<<"The height of the b.t : "<<height;
+
+    int diameter=0;
+    findDiameter(root,diameter);
+    cout<<endl<<"The diameter of the b.t : "<<diameter;
+
+    return 0;
+}
