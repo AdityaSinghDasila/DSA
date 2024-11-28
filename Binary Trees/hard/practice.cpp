@@ -567,6 +567,44 @@ void levelOrder(node* root){
     }
 }
 
+vector<int> zigzag(node* root){
+    vector<int> ans;
+    if(root == nullptr){
+        return ans;
+    }
+    bool lr = true;
+    queue<node*> q;
+    q.push(root);
+    while(!q.empty()){
+        vector<int> temp;
+        int n = q.size();
+        for(int i =0;i<n;i++){
+            node* m = q.front();
+            q.pop();
+            temp.push_back(m->val);
+            if(m->left!=nullptr){
+                q.push(m->left);
+            }
+            if(m->right!=nullptr){
+                q.push(m->right);
+            }
+        }
+        if(lr){
+            for(int i =0;i<temp.size();i++){
+                ans.push_back(temp[i]);
+            }
+            lr = false;
+        }else{
+            reverse(temp.begin(),temp.end());
+            for(int i =0;i<temp.size();i++){
+                ans.push_back(temp[i]);
+            }
+            lr = true;
+        }
+    }
+    return ans;
+}
+
 int main(){
     
     node* root = new node(1);
@@ -593,7 +631,11 @@ int main(){
     cout<<endl;
     levelOrder(root);
 
-    
-
+    //zigzag traversal
+    cout<<endl<<"The zigzag traversal of the bt : ";
+    vector<int> ans = zigzag(root);
+    for(int i : ans){
+        cout<<i<<" ";
+    }
     return 0;
 }
