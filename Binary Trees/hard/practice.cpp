@@ -742,3 +742,166 @@ int main(){
 }
 
 */
+
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+class node{
+    public : 
+    int val;
+    node* left;
+    node* right;
+    node(int val1){
+        val = val1;
+        left = right= nullptr;
+    }
+};
+
+void preOrder(node* root ){
+    if(root == nullptr){
+        return;
+    }
+    cout<<root ->val<<" ";
+    preOrder(root ->left);
+    preOrder(root ->right);
+}
+
+void inOrder(node* root){
+    if(root == nullptr){
+        return;
+    }
+    inOrder(root ->left);
+    cout<<root->val<<" ";
+    inOrder(root ->right);
+}
+
+void postOrder(node* root ){
+    if(root == nullptr){
+        return;
+    }
+    postOrder(root->left);
+    postOrder(root->right);
+    cout<<root->val<<" ";
+}
+
+void levelOrder(node* root){
+    if(root == nullptr){
+        return;
+    }
+    queue<node*> q;
+    q.push(root);
+    while(!q.empty()){
+        node* n = q.front();
+        q.pop();
+        cout<<n->val<<" ";
+        if(n->left!=nullptr){
+            q.push(n->left);
+        }
+        if(n->right!=nullptr){
+            q.push(n->right);
+        }
+    }
+}
+
+void findHeight(node* root, int& height, int current){
+    if(root == nullptr){
+        return;
+    }
+    height = max(height,current);
+    findHeight(root->left,height,current+1);
+    findHeight(root ->right, height, current+1);
+}
+
+int findWidth(node* root, int& diameter){
+    if(root==nullptr){
+        return 0;
+    }
+    int left = findWidth(root->left,diameter);
+    int right = findWidth(root->right,diameter);
+    diameter = max(diameter, right+left+1);
+    return max(left,right)+1;
+}
+
+int findMaxPathSum(node* root, int& sum){
+    if(root == nullptr){
+        return 0;
+    }
+    int left = findMaxPathSum(root->left,sum);
+    int right = findMaxPathSum(root->right,sum);
+    sum = max(sum,left+right+root->val);
+    return max(left,right)+root->val;
+}
+
+int checkBalance(node* root){
+    if(root == nullptr){
+        return 0;
+    }
+    int left = checkBalance(root->left);
+    int right = checkBalance(root -> right);
+    if(left==-1 || right==-1){
+        return -1;
+    }
+    else if(abs(left-right) >1){
+        cout<<endl<<"found the culprit : "<<root->val;
+        return -1;
+    }
+    return max(left,right)+1;
+}
+
+int main(){
+    
+    node* root = new node(1);
+    root->left = new node(2);
+    root->right = new node(11);
+
+    root->left->left = new node(5);
+    root->left->right = new node(6);
+
+    root->right->left = new node(0);
+    root->right->right = new node(56);
+
+    root->left->right->right = new node(3);
+    
+    root->left->right->right->right = new node(2);
+    root->left->right->right->right->left = new node(97);
+
+    cout<<endl<<"The preOrder traversal of the binary tree : ";
+    preOrder(root);
+
+    cout<<endl<<"The inOrder traversal of the binary tree : ";
+    inOrder(root);
+
+    cout<<endl<<"The postOrder traversal of the binary tree : ";
+    postOrder(root);
+
+    cout<<endl<<"The level order traversal of the binary tree : ";
+    levelOrder(root);
+
+    //find the height of the bt  :
+    int height =INT_MIN, current=1;
+    findHeight(root,height,current);
+    cout<<endl<<"The height of the binary tree : "<<height;
+
+    //find the diameter of the binary tree
+    //diameter of the binary tree is the longest path between nodes that may or may not contain the root
+    int diameter =0;
+    findWidth(root,diameter);
+    cout<<endl<<"The diameter of the binary tree is  : "<<diameter;
+
+    //find the max path sum of the binary tree .i.e the path with the maximum sum
+    int sum = INT_MIN;
+    findMaxPathSum(root,sum);
+    cout<<endl<<"The sum form the path with maximum sum is : "<<sum;
+
+    //check if bt is balanced or not i.e the height difference between the left and right subtree is  not more than 1
+    int ans = 1;
+    ans = checkBalance(root);
+    if(ans!=-1){
+        cout<<endl<<"The binary tree is balanced ! ";
+    }else{
+        cout<<endl<<"The binary tree is NOT balanced";
+    }
+    
+
+    return 0;
+}
