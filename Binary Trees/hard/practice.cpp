@@ -848,6 +848,39 @@ int checkBalance(node* root){
     return max(left,right)+1;
 }
 
+int findLca(node* root, int x, int y){
+    if(root == nullptr){
+        return -1;
+    }
+    if(root->val == x || root->val ==y){
+        return root->val;
+    }
+    int left = findLca(root->left,x,y);
+    int right = findLca(root->right,x,y);
+
+    if(left == -1 && right ==-1)
+    {
+        return -1;
+    }
+    if(left!=-1 && right==-1){
+        if(root->val == x || root->val ==y){
+            return root->val;
+        }else{
+            return left;
+        }
+    }else if(left ==-1 && right !=-1){
+        if(root->val == x|| root->val ==y){
+            return root->val;
+        }else{
+            return right;
+        }
+    }else if(left!=-1 && right!=-1){
+        return root->val;
+    }
+    return -1;
+}
+
+
 int main(){
     
     node* root = new node(1);
@@ -901,6 +934,17 @@ int main(){
     }else{
         cout<<endl<<"The binary tree is NOT balanced";
     }
+
+    //find the LCA (lowest common ancestor) of a binary tree
+    cout<<"Enter the two nodes for which the LCA is to be found : "<<endl;
+    cout<<"x : ";
+    int x;
+    cin>>x;
+    cout<<endl<<"y : ";
+    int y;
+    cin>>y;
+    ans = findLca(root,x,y);
+    cout<<endl<<"The lowest common ancestor is  : "<<ans; 
     
 
     return 0;
