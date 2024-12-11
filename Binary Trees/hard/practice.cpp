@@ -880,6 +880,27 @@ int findLca(node* root, int x, int y){
     return -1;
 }
 
+int findPath(node* root, int n,vector<int>& path){
+    if(root==nullptr){
+        return -1;
+    }
+    if(root->val == n){
+        path.push_back(root->val);
+        return root->val;
+    }
+    
+    int left = findPath(root->left,n,path);
+    int right = findPath(root->right,n,path);
+
+    if(left != -1 ){
+        path.push_back(root->val);
+        return left;
+    }else if(right != -1){
+        path.push_back(root->val);
+        return right;
+    }
+    return -1;
+}
 
 int main(){
     
@@ -945,7 +966,18 @@ int main(){
     cin>>y;
     ans = findLca(root,x,y);
     cout<<endl<<"The lowest common ancestor is  : "<<ans; 
-    
+
+    //find the path from root to a given node
+    vector<int> path;
+    cout<<endl<<"Enter a node to get a path from root : ";
+    int node;
+    cin>>node;
+    findPath(root,node,path);
+    reverse(path.begin(),path.end());
+    cout<<endl<<"The path from root to "<<node<<" : ";
+    for(int i : path){
+        cout<<i<<" ";
+    }
 
     return 0;
 }
