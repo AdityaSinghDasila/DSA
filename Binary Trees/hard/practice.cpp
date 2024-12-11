@@ -902,6 +902,42 @@ int findPath(node* root, int n,vector<int>& path){
     return -1;
 }
 
+void zigzag(node* root){
+    if(root==nullptr){
+        return;
+    }
+    queue<node*> q;
+    q.push(root);
+    bool flag = true;
+    while(!q.empty()){
+        vector<node*> temp;
+        int n = q.size();
+        for(int i =0;i<n;i++){
+            node* m = q.front();
+            temp.push_back(m);
+            q.pop();
+            if(m->left!=nullptr){
+                q.push(m->left);
+            }
+            if(m->right!=nullptr){
+                q.push(m->right);
+            }
+        }
+        if(flag){
+            for(node* i : temp){
+                cout<<i->val<<" ";
+                flag = false;
+            }
+        }else{
+            reverse(temp.begin(),temp.end());
+            for(node* i : temp){
+                cout<<i->val<<" ";
+            }
+            flag = true;
+        }
+    }
+}
+
 int main(){
     
     node* root = new node(1);
@@ -978,6 +1014,11 @@ int main(){
     for(int i : path){
         cout<<i<<" ";
     }
+
+
+    //zig zag traversal of a binary tree
+    cout<<endl<<"The zigzag traversal of binary tree : ";
+    zigzag(root);
 
     return 0;
 }
