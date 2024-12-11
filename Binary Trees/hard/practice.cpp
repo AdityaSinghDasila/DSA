@@ -504,6 +504,8 @@ int main(){
     return 0;
 }
 */
+
+/*
 #include <iostream>
 #include <bits/stdc++.h>
 using namespace std;
@@ -639,3 +641,104 @@ int main(){
     }
     return 0;
 }
+*/
+/*
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+class node{
+    public :
+    int val;
+    node* left;
+    node* right;
+    node(int val1){
+        val = val1;
+        left = right = nullptr;
+    }
+};
+
+void preOrder(node* root){
+    if(root == nullptr){
+        return;
+    }
+    cout<<root->val<<" ";
+    preOrder(root->left);
+    preOrder(root->right);
+}
+
+void inOrder(node* root){   
+    if(root == nullptr){
+        return;
+    }
+    inOrder(root->left);
+    cout<<root->val<<" ";
+    inOrder(root->right);
+}
+
+void postOrder(node* root){
+    if(root == nullptr){
+        return;
+    }
+    postOrder(root ->left);
+    postOrder(root->right);
+    cout<<root->val<<" ";
+}
+
+int findDiameter(node* root, int& diameter){
+    if(root == nullptr){
+        return 0;
+    }
+    int left = findDiameter(root->left,diameter);
+    int right = findDiameter(root ->right, diameter);
+    diameter = max(diameter,left+right+1);
+    return  max(left,right)+1;
+}
+
+void findHeight(node* root, int current, int& height){
+    if(root == nullptr){
+        return;
+    }
+
+}
+
+int main(){
+
+    node* root = new node(1);
+    root->left = new node(2);
+    root->right = new node(11);
+
+    root->left->left = new node(5);
+    root->left->right = new node(6);
+
+    root->right->left = new node(0);
+    root->right->right = new node(56);
+
+    root->left->right->right = new node(3);
+    
+    root->left->right->right->right = new node(2);
+    root->left->right->right->right->left = new node(97);
+
+    cout<<endl<<"The preOrder traversal of the binary tree : ";
+    preOrder(root);
+
+    cout<<endl<<"The inOrder traversal of the binary tree : ";
+    inOrder(root);
+
+    cout<<endl<<"The postOrder traversal of the binary tree : ";
+    postOrder(root);
+
+    //find the diameter of the bt
+    int diameter = 0;
+    findDiameter(root,diameter);
+    cout<<endl<<"The diameter of the binary tree : "<<diameter;
+
+    int current =1,height=INT_MIN;
+    findHeight(root,current,height);
+    cout<<endl<<"The height of the binary tree : "<<height;
+
+    
+
+    return 0;
+}
+
+*/
