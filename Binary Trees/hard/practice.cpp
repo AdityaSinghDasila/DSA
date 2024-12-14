@@ -1094,6 +1094,66 @@ void findHeight(node* root, int& height, int current){
     findHeight(root->right,height,current);
 }
 
+int findDiameter(node* root, int& diameter){
+    if(root==nullptr){
+        return 0;
+    }
+    int left = findDiameter(root->left,diameter);
+    int right = findDiameter(root->right,diameter);
+    diameter = max(diameter,left+right+1);
+    return max(left,right)+1;
+}
+
+int checkBalance(node* root){
+    if(root == nullptr){
+        return 0;
+    }
+    int left = checkBalance(root->left);
+    int right = checkBalance(root->right);
+    if(left==-1 || right ==-1){
+        return -1;
+    }
+    if(abs(left-right)>1){
+        return -1;
+    }
+    return max(left,right)+1;
+}
+
+int findMaxPathSum(node* root,int& sum){
+    if(root == nullptr){
+        return 0;
+    }
+    int left = findMaxPathSum(root->left,sum);
+    int right = findMaxPathSum(root->right,sum);
+    sum = max(sum,left+right+root->val);
+    return max(left,right)+root->val;
+}
+
+int checkIdentical(node* root, node* root2){
+    if(root==nullptr && root2== nullptr){
+        return 1;
+    }
+    if(root==nullptr){
+        cout<<endl<<"Missing node here at : "<<root2->val;
+        return -1;
+    }
+    if(root2==nullptr){
+        cout<<endl<<"Missing node here at : "<<root->val;
+        return -1;
+    }
+    if(root->val!=root2->val){
+        cout<<endl<<"Different nodes : "<<root->val<<" and "<<root2->val;
+        return -1;
+    }
+    int left = checkIdentical(root->left,root2->left);
+    int right = checkIdentical(root->right,root2->right);
+    if(left==-1 || right==-1){
+        return -1;
+    }else{
+        return 1;
+    }
+}
+
 int main(){
 
     node* root = new node(1);
@@ -1127,6 +1187,55 @@ int main(){
     int height =0,current =0;
     findHeight(root,height,current);
     cout<<endl<<"The height of the binary tree is : "<<height;
+
+    //find the diameter of the binary tree 
+    int diameter=0;
+    findDiameter(root,diameter);
+    cout<<endl<<"The diameter of the binary tree: "<<diameter;
+
+    //check if the bt is balanced or not
+    int check = 1;
+    check = checkBalance(root);
+    if(check!=-1){
+        cout<<endl<<"The binary tree is BALANCED! ";
+    }else{
+        cout<<endl<<"The binary tree is NOT balanced!!";
+    }
+
+    //find maximum path sum
+    int sum = INT_MIN;
+    current =0;
+    findMaxPathSum(root,sum);
+    cout<<endl<<"The maximum path sum is : "<<sum;
+
+    //check if the binary tree is identical or not
+    cout<<endl<<endl<<"The first binary tree : ";
+    preOrder(root);
+
+    node* roott = new node(1);
+    roott->left = new node(2);
+    roott->right = new node(11);
+
+    roott->left->left = new node(5);
+    roott->left->right = new node(6);
+
+    roott->right->left = new node(0);
+    roott->right->right = new node(56);
+
+    roott->left->right->right = new node(3);
+    
+    roott->left->right->right->right = new node(2);
+    roott->left->right->right->right->left = new node(97);
+    cout<<endl<<endl<<"The second binary tree : ";
+    preOrder(roott); 
+
+    int ans =1;
+    ans = checkIdentical(root,roott);
+    if(ans!=-1){
+        cout<<endl<<"The trees are identical ";
+    }else{
+        cout<<endl<<"The trees are not identical ";
+    }
 
 
 
