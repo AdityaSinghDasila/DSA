@@ -1401,7 +1401,53 @@ int findMaxPathSum(node* root, int& sum){
     return max(left,right)+root->val;
 }
 
+int findDiameter(node* root, int& diameter){
+    if(root== nullptr){
+        return 0;
+    }
+    int left = findDiameter(root->left,diameter);
+    int right = findDiameter(root->right,diameter);
+    diameter = max(diameter,left+right+1);
+    return max(left,right)+1;
+}
 
+int checkIdentical(node* root1, node* root2){
+    if(root1 == nullptr && root2 == nullptr){
+        return 0;
+    }
+    if((root1 == nullptr && root2!=nullptr) || (root1!=nullptr && root2==nullptr)){
+        cout<<endl<<"A node is missing at ";
+        if(root1==nullptr){
+            cout<<root2->val<<" ";
+        }else{
+            cout<<root1->val<<" ";
+        }
+        return -1;
+    }
+    if(root1->val != root2->val){
+        cout<<endl<<"Value does not match  : "<<root1->val<<" and "<<root2->val;
+        return -1;
+    }
+    return 1;
+}
+
+int getPath(node* root, int x){
+    if(root == nullptr){
+        return -1;
+    }
+    int left = getPath(root->left,x);
+    int right = getPath(root->right,x);
+    if(left == x || right == x){
+        cout<<root->val<<" ";
+        return x;
+    }
+    if(root->val == x){
+        cout<<root->val<<" ";
+        return root->val;
+    }else{
+        return -1;
+    }
+}
 
 int main(){
 
@@ -1455,7 +1501,45 @@ int main(){
     findMaxPathSum(root,sum);
     cout<<endl<<"The maximum path sum : "<<sum;
 
+    //find the diameter 
+    int diameter = INT_MIN;
+    findDiameter(root,diameter);
+    cout<<endl<<"The diameter of the binary tree : "<<diameter;
+
+    cout<<endl<<"The preOrder traversal of the 1st binary tree : ";
+    preOrder(root);
+
+    node* roott = new node(1);
+    roott->left = new node(2);
+    roott->right = new node(11);
+
+    roott->left->left = new node(5);
+    roott->left->right = new node(6);
+
+    roott->right->left = new node(0);
+    roott->right->right = new node(56);
+
+    roott->left->right->right = new node(3);
     
+    roott->left->right->right->right = new node(2);
+    roott->left->right->right->right->left = new node(97);  
+
+    cout<<endl<<"The preOrder traversal of the 2nd binary tree : ";
+    preOrder(roott);
+
+    check =1;
+    check = checkIdentical(root,roott);
+    if(check!=-1){
+        cout<<endl<<"The two trees are Identical! ";
+    }else{
+        cout<<endl<<"The two trees are NOT identical!! ";
+    }
+
+    //give the path to node
+    int x;
+    cout<<endl<<"Enter the node to which you need the path : ";
+    cin>>x;
+    getPath(root,x);
 
     return 0;
 }
