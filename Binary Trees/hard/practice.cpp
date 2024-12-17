@@ -1024,6 +1024,7 @@ int main(){
 }
 */
 
+/*
 #include <iostream>
 #include <bits/stdc++.h>
 using namespace std;
@@ -1154,6 +1155,24 @@ int checkIdentical(node* root, node* root2){
     }
 }
 
+int findLca(node* root,int x, int y){
+    if(root==nullptr){
+        return -1;
+    }
+    int left = findLca(root->left,x,y);
+    int right = findLca(root->right,x,y);
+    if(root->val == x || root->val ==y){
+        return root->val;
+    }
+    if(left == -1){
+        return right;
+    }else if(right == -1){
+        return left;
+    }else{
+        return root->val;   //left and right both have the x and y. Thus you are currently at the answer
+    }
+}
+
 int main(){
 
     node* root = new node(1);
@@ -1237,7 +1256,14 @@ int main(){
         cout<<endl<<"The trees are not identical ";
     }
 
-
+    //Lowest common ancestor
+    ans = INT_MIN;
+    int x,y;
+    cout<<endl<<"Enter x and y to find their LCA int the binary tree : ";
+    cin>>x>>y;
+    ans = findLca(root);
+    cout<<"The L.C.A : "<<ans;
 
     return 0;
 }
+*/
