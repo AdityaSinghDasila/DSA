@@ -494,7 +494,7 @@ int main(){
 }
 */
 
-
+/*
 #include <iostream> 
 #include <bits/stdc++.h>
 using namespace std;
@@ -563,6 +563,64 @@ int main(){
     vector<int> dfsVisited(n+1,0);
     cout<<endl<<"The dfs traversal of the graph : ";
     dfsTraversal(adj,x,dfsVisited);
+
+    return 0;
+}
+
+*/
+
+//matrix representation
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<vector<int>> returnAdjList(vector<vector<int>>& adj){
+    int r = adj.size();
+    vector<vector<int>> Adj(r,vector<int>(0,0));
+    for(int i =1;i<r;i++){
+        for(int j =1;j<r;j++){
+            if(adj[i][j]==1){
+                Adj[i].push_back(j);
+            }
+        }
+    }
+    return Adj;
+}
+
+int main(){
+
+    cout<<endl<<"Enter the number of nodes and edges : ";
+    int n,m;
+    cin>>n>>m;
+
+    vector<vector<int>> adj(n+1,vector<int>(n+1,0));
+    cout<<endl<<"Enter the edges : "<<endl;
+
+    for(int i=1;i<=m;i++){
+        int u,v;
+        cin>>u>>v;
+        adj[u][v] = 1;
+        adj[v][u] = 1;
+    }//adjacency matrix made
+
+    cout<<endl<<"Adjacency matrix : "<<endl;
+    for(int i =1;i<=n;i++){
+        cout<<i<<" -->    ";
+        for(int j =1;j<=n;j++){
+            cout<<adj[i][j]<<" ";
+        }
+        cout<<endl;
+    }
+
+    //making adjacency list from matrix 
+    vector<vector<int>> Adj = returnAdjList(adj);
+    for(int i = 1;i<=n;i++){
+        cout<<i<<" : ";
+        for(int j : Adj[i]){
+            cout<<j<<" ";
+        }
+        cout<<endl;
+    }
 
     return 0;
 }
