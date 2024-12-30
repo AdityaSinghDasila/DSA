@@ -1545,3 +1545,139 @@ int main(){
     return 0;
 }
 */
+
+
+
+
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+class node{
+    public : 
+    int val;
+    node* left;
+    node* right;
+    //constructor
+    node(int val1){
+        val = val1;
+        left = right = nullptr;
+    }
+};
+
+void preOrder(node* root ){
+    if(root == nullptr){
+        return;
+    }
+    cout<<root->val<<" ";
+    preOrder(root->left);
+    preOrder(root->right);
+}
+
+void inOrder(node* root){
+    if(root == nullptr){
+        return;
+    }
+    inOrder(root->left);
+    cout<<root->val<<" ";
+    inOrder(root->right);
+}
+
+void postOrder(node* root){
+    if(root==nullptr){
+        return;
+    }
+    postOrder(root->left);
+    postOrder(root->right);
+    cout<<root->val<<" ";
+}
+
+void levelOrder(node* root){
+    if(root == nullptr){
+        return;
+    }
+    queue<node*> q;
+    q.push(root);
+    while(!q.empty()){
+        node* n = q.front();
+        q.pop();
+        cout<<n->val<<" ";
+        if(n->left !=nullptr){
+            q.push(n->left);
+        }
+        if(n->right !=nullptr){
+            q.push(n->right);
+        }
+    }
+}
+
+void zigZag(node* root){
+    if(root == nullptr){
+        return;
+    }
+    bool flag = 1;
+    queue<node*> q;
+    q.push(root);
+    while(!q.empty()){
+        vector<int> temp;
+        int n = q.size();
+        for(int i=0;i<n;i++){
+            node* m = q.front();
+            q.pop();
+            if(m->left!=nullptr){
+                q.push(m->left);
+            }
+            if(m->right !=nullptr){
+                q.push(m->right);
+            }
+            temp.push_back(m->val);
+        }
+        if(flag){
+            flag =0;
+            for(int i : temp){
+                cout<<i<<" ";
+            }
+        }else{
+            flag =1;
+            reverse(temp.begin(),temp.end());
+            for(int i : temp){
+                cout<<i<<" ";
+            }
+        }
+    }
+}
+
+int main(){
+
+    node* root = new node(1);
+    root->left = new node(2);
+    root->right = new node(11);
+
+    root->left->left = new node(5);
+    root->left->right = new node(6);
+
+    root->right->left = new node(0);
+    root->right->right = new node(56);
+
+    root->left->right->right = new node(3);
+    
+    root->left->right->right->right = new node(2);
+    root->left->right->right->right->left = new node(97);    
+
+    //Tree traversal : 
+    cout<<endl<<"The preOrder traversal of the tree : ";
+    preOrder(root);
+
+    cout<<endl<<"The inOrder traversal of the tree : ";
+    inOrder(root);
+
+    cout<<endl<<"The postOrder traversal of the tree : ";
+    postOrder(root);
+
+    cout<<endl<<"The level order traversal of the tree : ";
+    levelOrder(root);
+
+    cout<<endl<<"The zigzag traversal of the tree : ";
+    zigZag(root);
+
+    return 0;
+}
