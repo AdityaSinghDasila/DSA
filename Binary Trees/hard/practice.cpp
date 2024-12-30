@@ -1668,6 +1668,53 @@ int findDiameter(node* root, int& diameter){
     return max(left,right)+1;
 }
 
+int maxPathSum(node* root,int& sum){
+    if(root == nullptr){
+        return 0;
+    }
+    int left = maxPathSum(root->left,sum);
+    int right = maxPathSum(root->right,sum);
+    sum = max(sum,left+right+root->val);
+    return max(left,right)+root->val;
+}
+
+int checkBalance(node* root){
+    if(root == nullptr){
+        return 0;
+    }
+    int left = checkBalance(root->left);
+    int right = checkBalance(root->right);
+
+    if(left==-1 || right ==-1){
+        return -1;
+    }
+    if(abs(left-right)>1){
+        cout<<endl<<"HERE is the imbalance : "<<root->val;
+        return -1;
+    }
+    return max(left,right)+1;
+}
+
+int pathToNode(node* root, int x){
+    if(root == nullptr){
+        return -1;
+    }
+    if(root->val == x){
+        cout<<root->val<<" ";
+        return x;
+    }
+    int left = pathToNode(root->left,x);
+    int right = pathToNode(root->right,x);
+    if(left == x){
+        cout<<root->val<<" ";
+        return x;
+    }else if(right == x){
+        cout<<root->val<<" ";
+        return x;
+    }
+    return -1;
+}
+
 int main(){
 
     node* root = new node(1);
@@ -1713,7 +1760,24 @@ int main(){
     findDiameter(root,diameter);
     cout<<endl<<"The diameter of the binary tree : "<<diameter;
 
+    //find maximum path sum
+    int sum =0;
+    maxPathSum(root,sum);
+    cout<<endl<<"The maximum path sum of the bt : "<<sum;
 
+    //check if bt is balanced
+    int check = 1;
+    check = checkBalance(root);
+    if(check!=-1){
+        cout<<endl<<"The tree is BALANCED!";
+    }else{
+        cout<<endl<<"The tree is NOT balanced!";
+    }
+
+    cout<<endl<<"Enter the node you want the path to : ";
+    int x;
+    cin>>x;
+    pathToNode(root,x);
 
     return 0;
 }
