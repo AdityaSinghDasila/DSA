@@ -627,6 +627,8 @@ int main(){
 }
 */
 
+
+/*
 #include <iostream>
 #include <bits/stdc++.h>
 using namespace std;
@@ -694,6 +696,82 @@ int main(){
 
     vector<int> dfs_visited(n+1,0);
     cout<<endl<<"The dfs traversal of the graph : ";
+    dfs_traversal(adj,x,dfs_visited);
+
+    return 0;
+}
+
+*/
+
+
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+
+void bfs_traversal(vector<vector<int>> &adj, int x){
+    int n = adj.size();
+    vector<int> visited(n,0);
+    queue<int>q;
+    q.push(x);
+    visited[x]=1;
+    while(!q.empty()){
+        int m = q.front();
+        q.pop();
+        cout<<m<<" ";
+        for(int i : adj[m]){
+            if(visited[i]==0){
+                q.push(i);
+                visited[i]=1;
+            }
+        }
+    }
+}//code for bfs traversal of the graph 
+
+void dfs_traversal(vector<vector<int>> adj, int x, vector<int>& visited){
+    cout<<x<<" ";
+    visited[x]=1;
+    for(int i : adj[x]){
+        if(visited[i]==0){
+            dfs_traversal(adj,i,visited);
+        }
+    }
+}//code for dfs traversal of the graph 
+
+int main(){
+
+    cout<<endl<<"Enter the no of nodes and edges : ";
+    int n,m;
+    cin>>n>>m;
+
+    vector<vector<int>> adj(n+1,vector<int>(0,0));
+    cout<<endl<<"Enter the edges : "<<endl;
+    for(int i = 0;i<m;i++){
+        int u,v;
+        cin>>u>>v;
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+    }//the adjacency list has been made
+
+    //printing the list
+    cout<<endl<<"The adjacency list : ";
+    for(int i =1;i<n+1;i++){
+        cout<<i<<" : ";
+        for(auto j : adj[i]){
+            cout<<j<<" ";
+        }
+        cout<<endl;
+    }    
+
+    int x;
+    cout<<endl<<"Enter the starting node of the graph : ";
+    cin>>x;
+
+    cout<<endl<<"The BFS traversal of the graph starting from "<<x<<" : ";
+    bfs_traversal(adj,x);
+
+    vector<int> dfs_visited(n+1,0);
+
+    cout<<endl<<"The DFS traversal of the graph starting from "<<x<<" : ";
     dfs_traversal(adj,x,dfs_visited);
 
     return 0;
