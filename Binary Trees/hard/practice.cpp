@@ -1715,6 +1715,32 @@ int pathToNode(node* root, int x){
     return -1;
 }
 
+int findLca(node* root, int x, int y){
+    if(root == nullptr){
+        return -1;
+    }
+    if(root->val ==x || root->val == y){
+        return root->val;
+    }
+    
+    int left = findLca(root->left,x,y);
+    int right = findLca(root->right,x,y);
+
+    if(left!=-1 && right!=-1){
+        return root->val;
+    }
+    if(left!=-1 || right !=-1){
+        if(left!=-1){
+            return left;
+        }else{
+            return right;
+        }
+    }
+    else{
+        return -1;
+    }
+}
+
 int main(){
 
     node* root = new node(1);
@@ -1774,10 +1800,22 @@ int main(){
         cout<<endl<<"The tree is NOT balanced!";
     }
 
+    //path to node x
     cout<<endl<<"Enter the node you want the path to : ";
     int x;
     cin>>x;
     pathToNode(root,x);
 
+    //lowest common ancestor of two nodes in the tree
+    cout<<endl<<"Enter the two nodes to find the LCA of both : ";
+    int y;
+    cin>>x>>y;
+    check = -1;
+    check = findLca(root,x,y); //it is guaranteed that the two nodes exist in the bt
+    if(check!=-1)
+        cout<<endl<<"The LCA : "<<check;
+    else{
+        cout<<endl<<"Invalid binary tree!" ;
+    }
     return 0;
 }
