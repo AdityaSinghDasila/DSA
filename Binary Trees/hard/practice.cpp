@@ -1741,6 +1741,34 @@ int findLca(node* root, int x, int y){
     }
 }
 
+int checkIdentical(node* root, node* root2){
+    if(root==nullptr && root2==nullptr){
+        return 1;
+    }
+    if(root==nullptr || root2 == nullptr){
+        cout<<endl<<"node missing : ";
+        if(root==nullptr){
+            cout<<root2->val;
+        }else{
+            cout<<root->val;
+        }
+        return -1;
+    }
+    if(root->val != root2->val){
+        cout<<endl<<"values diff here : "<<root->val<<" "<<root2->val; 
+        return -1;
+    }
+    int left = checkIdentical(root->left,root2->left);
+    int right = checkIdentical(root->right, root2->right);
+
+    if(left==-1 || right ==-1){
+        return -1;
+    }else{
+        return 1;
+    }
+}
+
+
 int main(){
 
     node* root = new node(1);
@@ -1817,5 +1845,35 @@ int main(){
     else{
         cout<<endl<<"Invalid binary tree!" ;
     }
+
+
+    node* roott = new node(1);
+    roott->left = new node(2);
+    roott->right = new node(11);
+
+    roott->left->left = new node(5);
+    roott->left->right = new node(2); //first tree has 6 here
+
+    roott->right->left = new node(0);
+    roott->right->right = new node(56);
+
+    roott->left->right->right = new node(3);
+    
+    roott->left->right->right->right = new node(2);
+    roott->left->right->right->right->left = new node(97);
+
+    cout<<endl<<endl<<"The preorder traversal of tree1 : ";
+    preOrder(root);
+
+    cout<<endl<<"The preorder traversal of tree 2 : ";
+    preOrder(roott);
+
+    check  = checkIdentical(root,roott);
+    if(check!=-1){
+        cout<<endl<<"The two trees are IDENTICAL!!";
+    }else{
+        cout<<endl<<"The two trees are NOT identical!";
+    }
+
     return 0;
 }
