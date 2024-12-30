@@ -1646,6 +1646,28 @@ void zigZag(node* root){
     }
 }
 
+void findHeight(node* root, int& height, int current){
+    if(root == nullptr){
+        return;
+    }
+    current++;
+    height = max(height,current);
+
+    findHeight(root->left,height,current);
+    findHeight(root->right, height, current);
+}
+
+
+int findDiameter(node* root, int& diameter){
+    if(root==nullptr){
+        return 0;
+    }
+    int left = findDiameter(root->left,diameter);
+    int right = findDiameter(root->right,diameter);
+    diameter = max(diameter, left+right+1);
+    return max(left,right)+1;
+}
+
 int main(){
 
     node* root = new node(1);
@@ -1678,6 +1700,20 @@ int main(){
 
     cout<<endl<<"The zigzag traversal of the tree : ";
     zigZag(root);
+
+
+    //find the height of the bt
+    int height=0,current =0;
+    findHeight(root,height,current);
+    cout<<endl<<"The height of the bt : "<<height;
+    current=0;
+
+    //diameter of the bt 
+    int diameter=0;
+    findDiameter(root,diameter);
+    cout<<endl<<"The diameter of the binary tree : "<<diameter;
+
+
 
     return 0;
 }
