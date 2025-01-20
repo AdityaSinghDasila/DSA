@@ -1283,3 +1283,67 @@ int main(){
 }
 */
 
+//merge sort practice
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+
+void merge(vector<int>& arr, int first, int middle, int last){
+    int p = first;
+    int q = middle+1;
+    vector<int>temp;
+    while(p<=middle && q<=last){
+        if(arr[p]<=arr[q]){
+            temp.push_back(arr[p]);
+            p++;
+        }else{
+            temp.push_back(arr[q]);
+            q++;
+        }
+    }//now one of them has been exhausted, lets make sure the other one is exhausted too
+
+    while(p<=middle){
+        temp.push_back(arr[p]);
+        p++;
+    }
+    while(q<=last){
+        temp.push_back(arr[q]);
+        q++;
+    }
+
+    //now the temp array has the sorted array, now we need to paste this sorted array into the original array from the first to the last index
+
+    for(int i = first; i<=last ; i++){
+        arr[i] = temp[i - first];
+    }//now the array has been filled
+
+}
+
+void mergeSort(vector<int>& arr,int first, int last){
+    if(first == last){
+        return;
+    }
+    int middle = (first + last)/2;
+    mergeSort(arr,first,middle);
+    mergeSort(arr,middle+1,last);
+    //now you have two sorted parts, you need to merge them
+    merge(arr,first,middle,last);
+}
+
+int main(){
+
+    vector<int> arr = {7,3,5,2,87,4,2,67,34,23,5,2,1,0,6,89,66,53,23,56,22,15};
+    cout<<endl<<"The array before the sorting : ";
+    for(int i : arr){
+        cout<<i<<" ";
+    }
+
+    mergeSort(arr,0,arr.size()-1);
+
+    cout<<endl<<"Array after sorting : ";
+    for(int i : arr){
+        cout<<i<<" ";
+    }
+
+    return 0;
+}
