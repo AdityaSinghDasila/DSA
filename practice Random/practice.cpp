@@ -1602,6 +1602,24 @@ int findMaxPathSum(node* root, int& sum){
     return max(left,right)+root->val;
 }
 
+int checkBalance(node* root){
+    if(root == nullptr){
+        return 0;
+    }
+    int left = checkBalance(root->left);
+    int right = checkBalance(root->right);
+    if(left==-1 || right == -1){
+        return -1;
+    }
+    if(abs(left-right)>1){
+        cout<<endl<<"The tree is not balanced form here below : "<<root->val<<endl;
+        return -1;
+    }
+    return max(left,right)+1;
+}
+
+
+
 int main(){
 
     node* root = new node(1);
@@ -1648,6 +1666,15 @@ int main(){
     int Sum = 0;
     findMaxPathSum(root,Sum);
     cout<<endl<<"The maximum path sum of the binary tree: "<<Sum;
+
+    //check if bt is balanced or not
+    int check =1;
+    check = checkBalance(root);
+    if(check!=-1){
+        cout<<endl<<"The binary tree is balanced ";
+    }else{
+        cout<<endl<<"The binary tree is NOT balanced!";
+    }
 
     return 0;
 }
