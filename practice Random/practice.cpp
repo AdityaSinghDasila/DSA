@@ -1352,7 +1352,7 @@ int main(){
 
 
 //merge sort a linked list
-
+/*
 #include <iostream>
 #include <bits/stdc++.h>
 using namespace std;
@@ -1467,6 +1467,187 @@ int main(){
         cout<<mover->val<<" ";
         mover =  mover ->next;
     }
+
+    return 0;
+}
+*/
+
+// Trees and stuff
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+
+class node{
+    public: 
+    int val;
+    node* right;
+    node* left;
+
+    //constructor
+    node(int val1){
+        val = val1;
+        left = right = nullptr;
+    }
+}; 
+
+void preOrder(node* root){
+    if(root == nullptr){
+        return;
+    }
+    cout<<root->val<<" ";
+    preOrder(root->left);
+    preOrder(root->right);
+}
+
+void inOrder(node* root){
+    if(root == nullptr){
+        return;
+    }
+    inOrder(root->left);
+    cout<<root->val<<" ";
+    inOrder(root->right);
+}
+
+void postOrder(node* root){
+    if(root == nullptr){
+        return;
+    }
+    postOrder(root->left);
+    postOrder(root->right);
+    cout<<root->val<<" ";
+}
+
+void levelOrder(node* root){
+    if(root == nullptr){
+        return;
+    }
+    queue<node*> q;
+    q.push(root);
+    while(!q.empty()){
+        node* n = q.front();
+        q.pop();
+        cout<<n->val<<" ";
+        if(n->left!=nullptr){
+            q.push(n->left);
+        }
+        if(n->right!=nullptr){
+            q.push(n->right);
+        }
+    }
+}
+
+void zigZag(node* root){
+    if(root == nullptr){
+        return;
+    }
+    queue<node*> q;
+    bool flag = true;
+    q.push(root);
+    while(!q.empty()){
+        int n = q.size();
+        vector<int>temp;
+        for(int i=0;i<n;i++){
+            node* m = q.front();
+            q.pop();
+            temp.push_back(m->val);
+            if(m->left!=nullptr){
+                q.push(m->left);
+            }
+            if(m->right!=nullptr){
+                q.push(m->right);
+            }
+        }//now that temp is filled for one layer
+        if(flag){
+            flag = false;
+            for(int i : temp){
+                cout<<i<<" ";
+            }
+        }else{
+            flag = true;
+            reverse(temp.begin(),temp.end());
+            for(int i : temp){
+                cout<<i<<" ";
+            }
+        }
+    }
+}
+
+void findHeight(node* root, int& height, int current){
+    if(root == nullptr){
+        return;
+    }
+    current++;
+    height = max(height,current);
+    findHeight(root->left,height,current);
+    findHeight(root->right,height,current);
+}
+
+int findDiameter(node* root, int& diameter){
+    if(root == nullptr){
+        return 0;
+    }
+    int left = findDiameter(root->left,diameter);
+    int right = findDiameter(root->right,diameter);
+    diameter = max(diameter, left+right+1);
+    return max(left,right)+1;
+}
+
+int findMaxPathSum(node* root, int& sum){
+    if(root == nullptr){
+        return 0;
+    }
+    int left = findMaxPathSum(root->left,sum);
+    int right = findMaxPathSum(root->right,sum);
+    sum = max(sum,left+right+root->val);
+    return max(left,right)+root->val;
+}
+
+int main(){
+
+    node* root = new node(1);
+    root->left = new node(2);
+    root->right = new node(11);
+
+    root->left->left = new node(5);
+    root->left->right = new node(6);
+
+    root->right->left = new node(0);
+    root->right->right = new node(56);
+
+    root->left->right->right = new node(3);
+    
+    root->left->right->right->right = new node(2);
+    root->left->right->right->right->left = new node(97);
+
+    cout<<endl<<"The preOrder traversal of the binary tree : ";
+    preOrder(root);
+
+    cout<<endl<<"The inOrder traversal of the binary tree : ";
+    inOrder(root);
+
+    cout<<endl<<"The postOrder traversal of the binary tree : ";
+    postOrder(root);
+
+    cout<<endl<<"The level order traversal of the binary tree: ";
+    levelOrder(root);
+
+    cout<<endl<<"The zigzag traversal of the binary tree : ";
+    zigZag(root);
+
+    //height of bt
+    int height=INT_MIN, current =0;
+    findHeight(root,height,current);
+    cout<<endl<<"The height of the bianry tree : "<<height;
+
+    //diameter of bt i.e max number of nodes in a path
+    int diameter =INT_MIN;
+    findDiameter(root,diameter);
+    cout<<endl<<"The diameter of the binary tree : "<<diameter;
+
+    //find Max path sum
+    int Sum = 0;
+    findMaxPathSum(root,Sum);
+    cout<<endl<<"The maximum path sum of the binary tree: "<<Sum;
 
     return 0;
 }
