@@ -1642,6 +1642,26 @@ int findLca(node* root, int x, int y){
     }
 }
 
+int pathToNode(node* root, int x){
+    if(root == nullptr){
+        return -1;
+    }
+    if(root->val == x){
+        cout<<root->val<<" ";
+        return root->val;
+    }
+    int left = pathToNode(root->left,x);
+    int right = pathToNode(root->right,x);
+
+    if(left!=-1 || right !=-1){
+        cout<<root->val<<" ";
+        return root->val;
+    }
+    else{
+        return -1;
+    }
+}
+
 
 int main(){
 
@@ -1710,6 +1730,12 @@ int main(){
     }else{
         cout<<endl<<"error finding lca!!";
     }
+
+    //find the path from the node to the root
+    cout<<endl<<"Enter the node you want the path to : ";
+    cin>>x;
+    cout<<endl<<"The path to node "<<x<<" is : ";
+    pathToNode(root,x);
 
     return 0;
 }
