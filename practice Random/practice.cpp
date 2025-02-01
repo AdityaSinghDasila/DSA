@@ -1744,6 +1744,7 @@ int main(){
 */
  
 
+/*
 
 //Graph traversal BFS and DFS
 #include <iostream>
@@ -1811,6 +1812,70 @@ int main(){
     vector<int> visited_dfs(n+1,0);
     cout<<endl<<"The dfs traversal of the graph is : ";
     dfs_traversal(adj,x,visited_dfs);
+
+    return 0;
+}
+*/
+
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+
+void merge(vector<int>& arr, int first, int middle, int last){
+    int i = first;
+    int j = middle+1;
+    vector<int> temp;
+    while(i<=middle && j <=last){
+        if(arr[i]<= arr[j]){
+            temp.push_back(arr[i]);
+            i++;
+        }
+        else{
+            temp.push_back(arr[j]);
+            j++;
+        }
+    }
+    //ensuring both exhausted
+    while(i<=middle){
+        temp.push_back(arr[i]);
+        i++;
+    }
+    while(j<=last){
+        temp.push_back(arr[j]);
+        j++;
+    }//both have been definitely exhausted by now
+
+    //time to fill the arr from temp vector;
+
+    for(int p = first;p<=last;p++){
+        arr[p]=  temp[p-first];
+    }//arr filled
+}
+
+void mergeSort(vector<int>& arr, int first, int last){
+    if(first>=last){
+        return;
+    }
+    int middle = (first+last)/2;
+    mergeSort(arr,first,middle);
+    mergeSort(arr,middle+1,last);
+    merge(arr,first,middle,last);
+}
+
+int main(){
+
+    vector<int> arr = {9,2,45,2,1,67,87,45,32,12,5,1,0,4,33,45,6,7,89,9,3,5,4};
+    cout<<endl<<"The array before sorting : ";
+    for(int i :  arr){
+        cout<<i<<" ";
+    }
+
+    cout<<endl<<"The array after sorting : ";
+    mergeSort(arr,0,arr.size()-1);
+
+    for(int i: arr){
+        cout<<i<<" ";
+    }
 
     return 0;
 }
