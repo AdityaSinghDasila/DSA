@@ -2172,6 +2172,44 @@ void zigZag(node* root){
     }
 }
 
+void findHeight(node* root, int& height,int count){
+    if(root == nullptr){
+        return;
+    }
+    count++;
+    height = max(height,count);
+    findHeight(root->left,height,count);
+    findHeight(root->right,height,count);
+}
+
+int maxPathSum(node* root,  int& sum){
+    if(root == nullptr){
+        return 0;
+    }
+    int left = maxPathSum(root->left,sum);
+    int right = maxPathSum(root->right,sum);
+    sum = max(sum, left+right+root->val);
+
+    return max(left,right) + root->val;
+
+}
+
+int checkBalance(node* root){
+    if(root == nullptr){
+        return 0;
+    }
+    int left = checkBalance(root->left);
+    int right = checkBalance(root->right);
+    if(left == -1 || right == -1){
+        return -1;
+    }
+    if(abs(left-right)>1){
+        cout<<" Found the imbalance : "<<root->val;
+        return -1;
+    }
+    return max(left,right)+1;
+}
+
 int main(){
 
     node* root = new node(1);
@@ -2204,6 +2242,23 @@ int main(){
 
     cout<<endl<<"The zigzag traversal of the binary tree : ";
     zigZag(root);
+
+    int height=INT_MIN,count =0;
+    findHeight(root,height,count);
+    cout<<endl<<"The height of the binary tree : "<<height;
+
+    int sum =0;
+    maxPathSum(root,sum);
+    cout<<endl<<"The maximum path sum of the binary tree : "<<sum;
+
+    int check = 1;
+    check = checkBalance(root);
+    if(check!=-1){
+        cout<<endl<<"The binary tree is BALANCED";
+    }else{
+        cout<<endl<<"The binary tree is NOT balanced";
+    }
+
 
 
     return 0;
