@@ -2501,7 +2501,7 @@ int main(){
     return 0;
 }
     */
-
+/*
 #include <iostream>
 #include <bits/stdc++.h>
 using namespace std;
@@ -2558,6 +2558,125 @@ int main(){
     cout<<endl<<"The array after sorting : ";
     for(int i:  arr){
         cout<<i<<" ";
+    }
+
+    return 0;
+}
+*/
+
+
+//sort linked list
+
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+class node{
+    public :
+    int val;
+    node* next;
+    //constructor
+    node(int val1){
+        val = val1;
+        next = nullptr;
+    }
+};
+
+node* mergeLL(node* h1, node* h2){
+    if(h1 == nullptr){
+        return h2;
+    }
+    if(h2 == nullptr){
+        return h1;
+    }
+    node* dummy = new node(-1);
+    node* mover = dummy;
+
+    node* temp1 = h1;
+    node* temp2 = h2;
+
+    while(temp1!=nullptr && temp2!=nullptr){
+        if(temp1->val <= temp2->val){
+            mover ->next = temp1;
+            temp1 = temp1->next;
+            mover = mover->next;
+        }else{
+            mover ->next = temp2;
+            temp2 = temp2->next;
+            mover = mover->next;
+        }
+    }
+
+    while(temp1!=nullptr){
+        mover->next = temp1;
+        temp1 = temp1->next;
+        mover = mover->next;
+    }
+
+    while(temp2!=nullptr){
+        mover ->next = temp2;
+        temp2 = temp2->next;
+        mover = mover->next;
+    }
+
+    dummy = dummy->next;
+    return dummy;
+
+}
+
+node* findMiddle(node* head){
+    node* s = head;
+    node* f = head->next->next;
+    while(f!=nullptr && f->next!=nullptr){
+        s = s->next;
+        f = f->next->next;
+    }
+    return s;
+}
+
+node* sortLinkedList(node* head){
+    if(head == nullptr || head->next == nullptr){
+        return head;
+    }
+    node* left = head;
+    node* middle = findMiddle(head);
+    node* right = middle->next;
+    middle->next = nullptr;
+
+    left = sortLinkedList(head);
+    right = sortLinkedList(right);
+    return mergeLL(left,right);
+}
+
+int main(){
+
+    node* head = new node(-1);
+    node* mover = head;
+    cout<<endl<<"Enter the nodes of the linked list : ";
+    int n=-1;
+    do{
+        cin>>n;
+        if(n!=-1){
+            node* temp = new node(n);
+            mover->next = temp;
+            mover = mover->next;
+        }
+    }while(n!=-1);
+
+    head = head ->next;
+    mover = head;
+    cout<<endl<<"The formed linked list before sorting : ";
+    while(mover!=nullptr){
+        cout<<mover->val<<" ";
+        mover = mover ->next;
+    }
+
+    head = sortLinkedList(head);
+
+    cout<<endl<<"The linked list after sorting : ";
+    mover = head;
+    while(mover!=nullptr){
+        cout<<mover->val<<" ";
+        mover = mover->next;
     }
 
     return 0;
