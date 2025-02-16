@@ -2327,6 +2327,114 @@ void levelOrder(node* root){
     }
 }
 
+void zigZag(node* root){
+    if(root == nullptr){
+        return;
+    }
+    queue<node*> q;
+    q.push(root);
+    bool flag = true;
+    while(!q.empty()){
+        int n = q.size();
+        vector<int>temp;
+        for(int i =0;i<n;i++){
+            node* m = q.front();
+            q.pop();
+            temp.push_back(m->val);
+            if(m->left!=nullptr){
+                q.push(m->left);
+            }
+            if(m->right!=nullptr){
+                q.push(m->right);
+            }
+        }
+        if(flag){
+            flag = false;
+            for(int i : temp){
+                cout<<i<<" ";
+            }
+        }else{
+            flag = true;
+            reverse(temp.begin(),temp.end());
+            for(int i : temp){
+                cout<<i<<" ";
+            }
+        }
+    }
+}
+
+void findHeight(node* root, int& height, int current){
+    if(root == nullptr){
+        return;
+    }
+    current++;
+    height = max(current,height);
+    findHeight(root->left,height,current);
+    findHeight(root->right,height,current);
+}
+
+int findDiameter(node* root, int& diameter){
+    if(root == nullptr){
+        return 0;
+    }
+    int left = findDiameter(root->left,diameter);
+    int right = findDiameter(root->right,diameter);
+
+    diameter = max(diameter,left+right+1);
+    return max(left,right)+1;
+}
+
+int findMaxPathSum(node* root,int& sum){
+    if(root == nullptr){
+        return 0;
+    }
+    
+    int left = findMaxPathSum(root->left,sum);
+    int right = findMaxPathSum(root->right,sum);
+
+    sum = max(sum,left+right+root->val);
+    return max(left,right)+root->val;
+        
+}
+
+int checkBalance(node* root){
+    if(root == nullptr){
+        return 0;
+    }
+    int left = checkBalance(root->left);
+    int right = checkBalance(root->right);
+    if(left ==-1 || right ==-1){
+        return -1;
+    }
+    if(abs(left-right)>1){
+        cout<<endl<<"here is wrong : "<<root->val<<" ";
+        return -1;
+    }
+    return max(left,right)+1;
+}
+
+int findLca(node* root, int x, int y){
+    if(root == nullptr){
+        return -1;
+    }
+    int left = findLca(root->left,x,y);
+    int right = findLca(root->right,x,y);
+    if(root ->val == x || root->val == y){
+        cout<<endl<<"Found one : "<<root->val;
+        return root->val;
+    }
+    if(left != -1 && right!= -1){
+        return root->val;
+    }
+    if(left!=-1){
+        return left;
+    }
+    if(right != -1){
+        return right;
+    }
+    return -1;
+}
+
 int main(){
 
     node* root = new node(1);
@@ -2355,6 +2463,40 @@ int main(){
 
     cout<<endl<<"The level order traversal of the binary tree : ";
     levelOrder(root);
+
+    cout<<endl<<"The zigzag traversal of the binary tree : ";
+    zigZag(root);
+
+    int height=0,current=0;
+    findHeight(root,height,current);
+    cout<<endl<<"The height of the binary tree : "<<height;
+
+    //find diameter 
+    int diameter=0;
+    findDiameter(root,diameter);
+    cout<<endl<<"The diameter of the binary tree : "<<diameter;
+
+    //maxPath sum find
+    int maxPathSum=0;
+    findMaxPathSum(root,maxPathSum);
+    cout<<endl<<"The maximum path sum : "<<maxPathSum;
+
+    int check =-1;
+    check = checkBalance(root);
+    if(check!=-1){
+        cout<<endl<<"The bt is balanced";
+    }else{
+        cout<<endl<<"The bt is NOT balanced!";
+    }
+
+    //Lowest common ancestor
+    int lca = -1;
+    cout<<endl<<"Enter the 2 nodes you want the lca for : ";
+    int x,y;
+    cin>>x>>y;
+    lca = findLca(root,x,y);
+    cout<<endl<<"The lca : "<<lca;
+    
 
     return 0;
 }
