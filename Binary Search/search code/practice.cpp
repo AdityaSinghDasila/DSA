@@ -324,6 +324,7 @@ int main(){
 
 
 //practice session after more than 5 months
+/*
 #include <iostream>
 #include <bits/stdc++.h>
 using namespace std;
@@ -370,3 +371,143 @@ int main(){
 
     return 0;
 }
+*/
+
+
+//floor , [lower bound, upper bound]
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+
+int findIndex(vector<int>& arr, int x){
+    int first = 0;
+    int last = arr.size()-1;
+    int middle = first + (last-first)/2;
+    while(first<= last){
+        middle = first + (last - first)/2;
+        if(arr[middle] == x){
+            return middle;
+        }
+        else if(arr[middle]> x){
+            last = middle -1;
+        }else{
+            first = middle +1;
+        }
+    }
+    return -1;
+}
+
+int findFloor(vector<int>& arr, int x){
+    int first = 0;
+    int floor = -1;
+    int last = arr.size()-1;
+    int middle = first + (last-first)/2;
+    while(first<=last){
+        middle = first + (last - first)/2;
+        if(arr[middle]==x){
+            floor = middle;
+            return middle;
+        }
+        else if(arr[middle]< x){
+            floor = middle;
+            first = middle +1;
+        }
+        else{
+            last = middle -1;
+        }
+    }
+    return floor;
+}
+
+int findLowerB(vector<int>& arr, int x){
+    int first = 0;
+    int last = arr.size()-1;
+    int middle = first + (last -first)/2;
+    int lowerB = -1;
+    while(first <= last){
+        middle = first + (last - first)/2;
+        if(arr[middle]==x){
+            lowerB = middle;
+            return middle;
+        }
+        else if(arr[middle]>x){
+            lowerB = middle;
+            last = middle -1;
+        }else{
+            first = middle +1;
+        }
+    }
+    return lowerB;
+}
+
+int findUpperB(vector<int>& arr, int x){
+    int first = 0;
+    int upperB =-1;
+    int last = arr.size()-1;
+    int middle = first + (last - first)/2;
+    while(first <= last){
+        middle = first + (last-first)/2;
+        if(arr[middle]>x){
+            upperB = middle;
+            last = middle -1;
+        }
+        else{
+            first = middle +1;
+        }
+    }
+    return upperB;
+}
+
+int main(){
+
+    vector<int> arr ={1,2,3,4,5,7,8,9,10,11,22,34,56};
+    cout<<endl<<"The array : ";
+    for(int i: arr){
+        cout<<i<<" ";
+    }
+
+    int x;
+    cout<<endl<<"Enter the number you want to find the index/floor/lowerB/upperB of : ";
+    cin>>x;
+
+    int floor = -1;
+    floor = findFloor(arr,x);
+    
+    int index = -1;
+    index = findIndex(arr,x);
+
+    int lowerB =-1;
+    lowerB = findLowerB(arr,x);
+
+    int upperB =-1;
+    upperB = findUpperB(arr,x);
+
+    if(floor!=-1){
+        cout<<endl<<"The floor : "<<arr[floor];
+    }else{
+        cout<<endl<<"The floor was not found ";
+    }
+
+    if(index!=-1){
+        cout<<endl<<"The index : "<<index;
+    }else{
+        cout<<endl<<"The element was not found ";
+    }
+
+    if(lowerB!=-1){
+        cout<<endl<<"The lower bound : "<<arr[lowerB];
+    }else{
+        cout<<endl<<"The lower bound does not exist!"; 
+    }
+
+    if(upperB!=-1){
+        cout<<endl<<"The upper bound : "<<arr[upperB];
+    }else{
+        cout<<endl<<"The upper bound does not exist";
+    }
+
+
+
+    return 0;
+
+    }
