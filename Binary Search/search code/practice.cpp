@@ -321,3 +321,52 @@ int main(){
 /*----------------------------------------------------------------------------------------
         YOU CANNOT FIND UPPER AND LOWER BOUND IN A SINGLE PASS, FIND THEM SEPERATELY-----------------------------------------------------------------------------
 */
+
+
+//practice session after more than 5 months
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+
+int binarySearch(vector<int>& arr, int x){
+    int first = 0;
+    int last = arr.size()-1;
+    int middle = (first+last)/2;
+    while(middle>= first && middle <=last){
+        if(arr[middle]==x){
+            return middle;
+        }
+        else if(arr[middle]> x){
+            last = middle-1;
+            middle = (first+last)/2;
+        }else{
+            first = middle+1;
+            middle = (first+last)/2;
+        }
+    }
+    return -1;
+}
+
+int main(){
+
+    vector<int> arr = {1,2,3,4,5,6,7,8,9,10};
+    cout<<endl<<"The vector (sorted) : ";
+    for(int i : arr){
+        cout<<i<<" ";
+    }
+
+    cout<<endl<<"Enter the number you want to search : ";
+    int x;
+    cin>>x;
+
+    int n =-1;
+    n = binarySearch(arr,x);
+
+    if(n!=-1){
+        cout<<endl<<"FOUND! at index : "<<n;
+    }else{
+        cout<<endl<<"not found";
+    }
+
+    return 0;
+}
