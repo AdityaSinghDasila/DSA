@@ -504,6 +504,7 @@ int main(){
 }
 */
 
+/*
 #include <iostream>
 #include <bits/stdc++.h>
 using namespace std;
@@ -620,6 +621,139 @@ int main(){
     int diameter=0;
     findDiameter(root,diameter);
     cout<<endl<<"The diameter of the b.t : "<<diameter;
+
+    return 0;
+}
+
+*/
+
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+
+class node{
+    public : 
+    int val;
+    node* left;
+    node* right;
+    //constructor
+    node(int val1){
+        val= val1;
+        left = right = nullptr;
+    }
+};
+
+void preOrder(node* root){
+    if(root == nullptr){
+        return;
+    }
+    cout<<root ->val<<" ";
+    preOrder(root->left);
+    preOrder(root->right);
+}
+
+void inOrder(node* root){
+    if(root == nullptr){
+        return;
+    }
+    inOrder(root->left);
+    cout<<root->val<<" ";
+    inOrder(root->right);
+}
+
+void postOrder(node* root){
+    if(root == nullptr){
+        return;
+    }
+    postOrder(root->left);
+    postOrder(root->right);
+    cout<<root->val<<" ";
+
+}
+
+void levelOrderTraversal(node* root){
+    if(root == nullptr){
+        return;
+    }
+    queue<node*> q;
+    q.push(root);
+    while(!q.empty()){
+        node* n = q.front();
+        q.pop();
+        cout<<n->val<<" ";
+        if(n->left!= nullptr){
+            q.push(n->left);
+        }
+        if(n->right){
+            q.push(n->right);
+        }
+    }
+}
+
+void zigzagTraversal(node* root){
+    if(root == nullptr){
+        return;
+    }
+    queue<node*> q;
+    q.push(root);
+    bool flag = true;
+    while(!q.empty()){
+        int n = q.size();
+        vector<int> temp;
+        for(int i =0;i<n;i++){
+            node* m = q.front();
+            temp.push_back(m->val);
+            if(m->left!=nullptr){
+                q.push(m->left);
+            }
+            if(m->right!=nullptr){
+                q.push(m->right);
+            }
+        }   
+        if(flag){
+            flag = false;
+            for(int i: temp){
+                cout<<i<<" ";
+            }
+        }else{
+            flag = true;
+            reverse(temp.begin(),temp.end());
+            for(int i : temp){
+                cout<<i<<" ";
+            }
+        }
+
+    }
+
+}
+
+int main(){
+
+    node* root = new node(1);
+    root->left = new node(2);
+    root->right = new node(11);
+
+    root->left->left = new node(5);
+    root->left->right = new node(6);
+
+    root->right->left = new node(0);
+    root->right->right = new node(56);
+
+    root->left->right->right = new node(3);
+    
+    root->left->right->right->right = new node(2);
+    root->left->right->right->right->left = new node(97);
+
+    cout<<endl<<"The preOrder traversal of the binary tree : ";
+    preOrder(root);
+
+    cout<<endl<<"The inOrder traversal of the binary tree : ";
+    inOrder(root);
+
+    cout<<endl<<"The postOrder traversal of the bianry tree : ";
+    postOrder(root);
+
+
 
     return 0;
 }
