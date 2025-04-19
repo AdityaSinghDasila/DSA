@@ -627,6 +627,7 @@ int main(){
 
 */
 
+/*
 #include <iostream>
 #include <bits/stdc++.h>
 using namespace std;
@@ -754,6 +755,214 @@ int main(){
     postOrder(root);
 
 
+
+    return 0;
+}
+
+*/
+
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+
+class node{
+    public :
+    int val;
+    node* left;
+    node* right;
+
+    //constructor
+    node(int val1){
+        val = val1;
+        left = right = nullptr;
+    }
+};
+
+void preOrder(node* root){
+    if(root == nullptr){
+        return;
+    }
+    cout<<root->val<<" ";
+    preOrder(root->left);
+    preOrder(root->right);
+}
+
+void inOrder(node* root){
+    if(root == nullptr){
+        return;
+    }
+    inOrder(root->left);
+    cout<<root->val<<" ";
+    inOrder(root->right);
+}
+
+void postOrder(node* root){
+    if(root == nullptr){
+        return;
+    }
+    postOrder(root ->left);
+    postOrder(root->right);
+    cout<<root->val<<" ";
+}
+
+void levelOrder(node* root){
+    if(root == nullptr){
+        return;
+    }
+    queue<node*> q;
+    q.push(root);
+    while(!q.empty()){
+        node* n = q.front();
+        q.pop();
+        cout<<n->val<<" ";
+        if(n->left!=nullptr){
+            q.push(n->left);
+        }
+        if(n->right){
+            q.push(n->right);
+        }
+    }
+}
+
+void zigzagTraversal(node* root){
+    if(root == nullptr){
+        return;
+    }
+    queue<node*>q;
+    q.push(root);
+    bool flag = true;
+    while(!q.empty()){
+        int n = q.size();
+        vector<int> temp;
+        for(int i=0;i<n;i++){
+            node* m = q.front();
+            q.pop();
+            temp.push_back(m->val);
+            if(m->left != nullptr){
+                q.push(m->left);
+            }
+            if(m->right!=nullptr){
+                q.push(m->right);
+            }
+        }
+        if(flag){
+            flag = false;
+            for(int i : temp){
+                cout<<i<<" ";
+            }
+        }else{
+            flag = true;
+            reverse(temp.begin(),temp.end());
+            for(int i : temp){
+                cout<<i<<" ";
+            }
+        }
+    }
+}
+
+void findHeight(node* root, int& height, int current){
+    if(root == nullptr){
+        return;
+    }
+    current ++;
+    height = max(height,current);
+    findHeight(root->left,height,current);
+    findHeight(root->right,height,current);
+}
+
+int findDiameter(node* root, int& Diameter){
+    if(root == nullptr){
+        return 0;
+    }
+    int left = findDiameter(root->left, Diameter);
+    int right = findDiameter(root->right, Diameter);
+
+    Diameter = max(Diameter, left+right +1);
+
+    return max(left,right);
+}
+
+int findMaxPathSum(node* root, int& maxPathSum){
+    if(root == nullptr){
+        return 0;
+    }
+    int left = findMaxPathSum(root->left, maxPathSum);
+    int right = findMaxPathSum(root->right, maxPathSum);
+
+    maxPathSum = max(maxPathSum, left+right+root->val);
+
+    return max(left,right) + root->val;
+}
+
+int checkBalanceBt(node* root){
+    if(root == nullptr){
+        return 0;
+    }
+    int left = checkBalanceBt(root->left);
+    int right = checkBalanceBt(root->right);
+
+    if(left == -1 || right == -1){
+        return -1;
+    }
+
+    if(abs(left-right)>1){
+        return -1;
+    }
+
+    return max(left,right)+1;
+}
+
+int main(){
+
+    node* root = new node(1);
+    root->left = new node(2);
+    root->right = new node(11);
+
+    root->left->left = new node(5);
+    root->left->right = new node(6);
+
+    root->right->left = new node(0);
+    root->right->right = new node(56);
+
+    root->left->right->right = new node(3);
+    
+    root->left->right->right->right = new node(2);
+    root->left->right->right->right->left = new node(97);
+
+
+    cout<<endl<<"The preOrder traversal of the binary tree : ";
+    preOrder(root);
+
+    cout<<endl<<"The inOrder traversal of the binary tree :  ";
+    inOrder(root);
+
+    cout<<endl<<"The postOrder traversal of the binary tree : ";
+    postOrder(root);
+
+    cout<<endl<<"The levelOrder traversal of the binary tree : ";
+    levelOrder(root);
+
+    cout<<endl<<"The zigZag traversal of the binary tree : ";
+    zigzagTraversal(root);
+
+    int height= 0, current =0;
+    findHeight(root, height, current);
+    cout<<endl<<"The height of the binary tree : "<<height;
+
+    int Diameter = 0;
+    cout<<endl<<"The Diameter of the tree is : "<<Diameter;
+    
+    int maxPathSum = 0;
+    findMaxPathSum(root,maxPathSum);
+    cout<<endl<<"The sum of maximum Path sum of the tree : "<<maxPathSum;
+    
+    int check = 1;
+    check = checkBalanceBt(root);
+    if(check){
+        cout<<endl<<"The binary tree is balanced!";
+    }else{
+        cout<<endl<<"The binary tree is not balanced!";
+    }
 
     return 0;
 }
